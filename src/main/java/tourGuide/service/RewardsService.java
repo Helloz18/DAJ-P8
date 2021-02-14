@@ -36,34 +36,80 @@ public class RewardsService {
 		proximityBuffer = defaultProximityBuffer;
 	}
 	
+	/**
+	 * for a user, return the sum of all rewardsPoints earned by his visitedLocations.
+	 * @param user
+	 */
 	public void calculateRewards(User user) {
 		List<VisitedLocation> userLocations = user.getVisitedLocations();
 		List<Attraction> attractions = gpsUtil.getAttractions();
 		
-		for(VisitedLocation visitedLocation : userLocations) {
+
+		///V2 
+		for(int i=0; i < userLocations.size(); i++) {
 			for(Attraction attraction : attractions) {
 				if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
-					if(nearAttraction(visitedLocation, attraction)) {
-						user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
+					if(nearAttraction(userLocations.get(i), attraction)) {
+						user.addUserReward(new UserReward(userLocations.get(i), attraction, getRewardPoints(attraction, user)));
 					}
 				}
 			}
-		}
+		}		
+		
+		///// V1 (de base)
+		/// pour chaque lieu visité par l'utilisateur
+		///pour chaque attraction existante
+		///si dans les rewards obtenus par le user on ne trouve pas l'attraction dans les lieux visités par l'utilisateur
+		///et si l'attraction correspond à la localisation de l'utilisateur
+		//alors le reward de cet attraction est ajouté aux rewards de l'utilisateur
+//		for(VisitedLocation visitedLocation : userLocations) {
+//			for(Attraction attraction : attractions) {
+//				if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
+//					if(nearAttraction(visitedLocation, attraction)) {
+//						user.addUserReward(new UserReward(visitedLocation, attraction, getRewardPoints(attraction, user)));
+//					}
+//				}
+//			}
+//		}
 	}
 	
-	
+	/**
+	 * attractionProximityRange defines a perimeter around the user's location. If an attraction is within this 
+	 * perimeter the method return true.
+	 * @param attraction
+	 * @param location
+	 * @return
+	 */
 	public boolean isWithinAttractionProximity(Attraction attraction, Location location) {
 		return getDistance(attraction, location) > attractionProximityRange ? false : true;
 	}
 	
+	/**
+	 * return true if the user's visitedLocation matches the attraction's location.
+	 * @param visitedLocation
+	 * @param attraction
+	 * @return
+	 */
 	private boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {
 		return getDistance(attraction, visitedLocation.location) > proximityBuffer ? false : true;
 	}
 	
+	/**
+	 * return the rewardpoints of an attraction for a user.
+	 * @param attraction
+	 * @param user
+	 * @return
+	 */
 	private int getRewardPoints(Attraction attraction, User user) {
 		return rewardsCentral.getAttractionRewardPoints(attraction.attractionId, user.getUserId());
 	}
 	
+	/**
+	 * this method calculate the distance in miles between two locations.
+	 * @param loc1
+	 * @param loc2
+	 * @return
+	 */
 	public double getDistance(Location loc1, Location loc2) {
         double lat1 = Math.toRadians(loc1.latitude);
         double lon1 = Math.toRadians(loc1.longitude);

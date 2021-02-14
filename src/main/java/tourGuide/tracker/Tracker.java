@@ -30,6 +30,7 @@ public class Tracker extends Thread {
 	 */
 	public void stopTracking() {
 		stop = true;
+		logger.debug("Stop Tracker.");
 		executorService.shutdownNow();
 	}
 	

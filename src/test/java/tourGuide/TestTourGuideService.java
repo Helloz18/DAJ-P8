@@ -11,22 +11,22 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jsoniter.output.JsonStream;
 
 import gpsUtil.GpsUtil;
 import gpsUtil.location.Attraction;
 import gpsUtil.location.VisitedLocation;
 import rewardCentral.RewardCentral;
-import tourGuide.helper.InternalTestHelper;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
@@ -43,9 +43,7 @@ public class TestTourGuideService {
 	
 	@Before
 	  public void init() {
-		Locale.setDefault(Locale.US);
-		InternalTestHelper.setInternalUserNumber(0);
-		
+		Locale.setDefault(Locale.US);		
 	  }
 
 	@Test
@@ -99,6 +97,7 @@ public class TestTourGuideService {
 		assertEquals(user.getUserId(), visitedLocation.userId);
 	}
 	
+	//TODO (Ã  corriger)
 	@Test
 	public void getTripDeals() {
 		
@@ -112,73 +111,134 @@ public class TestTourGuideService {
 	}
 	
 	@Test
-	public void testReturnOfSerializeGetFiveNearAttractions() throws JSONException {
+	public void testReturnOfSerializeGetFiveNearAttractions() throws JSONException, InterruptedException, ExecutionException {
 		// GIVEN
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 		VisitedLocation visitedLocation = tourGuideService.trackUserLocation(user);
 
 		Map<Attraction, Double> mapSorted = tourGuideService.getAttractionsByDistance(visitedLocation);
-		// on sépare les attractions et les distances dans deux listes distinctes
-		List<Attraction> attractionsSorted = new ArrayList<Attraction>(); 
-		List<Double> distanceSorted = new ArrayList<Double>();
-		for (Map.Entry<Attraction, Double> entry : mapSorted.entrySet()) {
-			Attraction key = entry.getKey();
-			Double value = entry.getValue();
-			attractionsSorted.add(key);
-			distanceSorted.add(value);
-		}
-
-		// on ne garde que les 5 premiers éléments
-		List<Attraction> fiveAttractions = new ArrayList<Attraction>(attractionsSorted.subList(0, 5));
-		List<Double> fiveDistances = new ArrayList<Double>(distanceSorted.subList(0, 5));	
-
-		// création d'un array JSON contenant les attractions sous forme d'objets JSON
+		
+		// WHEN
+		////V2
 		JSONArray attractionsWanted = new JSONArray();
-		for(int i=0; i<5; i++) { // le nombre d'attractionsWanted pourrait être géré dans une variable
-		JSONObject attraction = new JSONObject();	
-		attraction.put("name", fiveAttractions.get(i).attractionName);
-		attraction.put("latitude", fiveAttractions.get(i).latitude);
-		attraction.put("longitude", fiveAttractions.get(i).longitude);
-		attraction.put("rewardPoints", JsonStream.serialize(rewardCentral.getAttractionRewardPoints(
-				fiveAttractions.get(i).attractionId, user.getUserId())));
-		attraction.put("distance", fiveDistances.get(i));
-		attractionsWanted.put(attraction);
-		}
+		int i=0;
+		for (Map.Entry<Attraction, Double> entry : mapSorted.entrySet()) {		
+			while( i<5) { // le nombre d'attractionsWanted pourrait Ãªtre gÃ©rÃ© dans une variable
+				Attraction key = entry.getKey();
+				Double value = entry.getValue();			
+				
+				JSONObject attraction = new JSONObject();	
+				attraction.put("name", key.attractionName);
+				attraction.put("latitude", key.latitude);
+				attraction.put("longitude", key.longitude);
+				attraction.put("rewardPoints", JsonStream.serialize(rewardCentral.getAttractionRewardPoints(
+						key.attractionId, user.getUserId())));
+				attraction.put("distance", value);
+				attractionsWanted.put(attraction);
+				
+				i++;
+			}		
+		}			
+		////V1
+//		 //on sÃ©pare les attractions et les distances dans deux listes distinctes
+//				List<Attraction> attractionsSorted = new ArrayList<Attraction>(); 
+//				List<Double> distanceSorted = new ArrayList<Double>();
+//				
+//		for (Map.Entry<Attraction, Double> entry : mapSorted.entrySet()) {
+//			Attraction key = entry.getKey();
+//			Double value = entry.getValue();
+//			attractionsSorted.add(key);
+//			distanceSorted.add(value);
+//		}
+//
+//		// on ne garde que les 5 premiers Ã©lÃ©ments
+//		List<Attraction> fiveAttractions = new ArrayList<Attraction>(attractionsSorted.subList(0, 5));
+//		List<Double> fiveDistances = new ArrayList<Double>(distanceSorted.subList(0, 5));	
+//
+//		// crÃ©ation d'un array JSON contenant les attractions sous forme d'objets JSON
+//		JSONArray attractionsWanted = new JSONArray();
+//		for(int i=0; i<5; i++) { // le nombre d'attractionsWanted pourrait Ãªtre gÃ©rÃ© dans une variable
+//		JSONObject attraction = new JSONObject();	
+//		attraction.put("name", fiveAttractions.get(i).attractionName);
+//		attraction.put("latitude", fiveAttractions.get(i).latitude);
+//		attraction.put("longitude", fiveAttractions.get(i).longitude);
+//		attraction.put("rewardPoints", JsonStream.serialize(rewardCentral.getAttractionRewardPoints(
+//				fiveAttractions.get(i).attractionId, user.getUserId())));
+//		attraction.put("distance", fiveDistances.get(i));
+//		attractionsWanted.put(attraction);
+//		}
 		
 		JSONObject result = new JSONObject();
 		result.put("user's location",JsonStream.serialize(visitedLocation.location));
 		result.put("attraction", attractionsWanted);
 		
-		System.out.println(result.get("attraction"));
-		
+		// THEN
 		assertEquals(5, result.getJSONArray("attraction").length());	
 	}
+
 	
 	@Test
-	public void testGetAttractionsByDistance() {
+	public void testGetAttractionsByDistance() throws InterruptedException, ExecutionException {
 		// GIVEN
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 		VisitedLocation visitedLocation = tourGuideService.trackUserLocation(user);
-		//WHEN
+		// WHEN
 		List<Attraction> attractions = gpsUtil.getAttractions();
 		Map<Attraction, Double> attractionDistance = new HashMap<Attraction, Double>();
 		
-		for (Attraction attraction : attractions) {
-			Double distance = rewardsService.getDistance(attraction, visitedLocation.location);
-			attractionDistance.put(attraction, distance);
-		}
-		// trie le map en fonction des distances, de la plus petite à la plus grande
+		//////v2 - parallelStream
+		attractions.parallelStream().forEach((attraction) -> {
+			attractionDistance.put(attraction, rewardsService.getDistance(attraction, visitedLocation.location));
+		});		
+			
+		//////v1 - boucle for
+//		for (Attraction attraction : attractions) {
+//			Double distance = rewardsService.getDistance(attraction, visitedLocation.location);
+//			attractionDistance.put(attraction, distance);
+//		}
+		
+		
+		// trie le map en fonction des distances, de la plus petite Ã  la plus grande
 		Map<Attraction, Double> mapSortedByValue = attractionDistance.entrySet().stream()
 				.sorted(Map.Entry.comparingByValue())
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
-
-		//récupère les valeurs de distance dans une liste
+		
+		// THEN
+		//rÃ©cupÃ¨re les valeurs de distance dans une liste pour valider le test
 		List<Double> distanceSorted = new ArrayList<Double>();		
 		for (Map.Entry<Attraction, Double> entry : mapSortedByValue.entrySet()) {
 			Double value = entry.getValue();
 			distanceSorted.add(value);
 		}
-		// THEN
-		assertThat(distanceSorted.get(0)<distanceSorted.get(1));	
+		List<Double> fiveDistances = new ArrayList<Double>(distanceSorted.subList(0, 5));	
+		
+		assertThat(distanceSorted.get(0)<distanceSorted.get(1));
+		assertEquals(fiveDistances.size(), 5);
 	}
+	
+	@Test
+	public void getAllCurrentLocationOfUsers() throws JSONException, JsonProcessingException {
+		// GIVEN
+		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
+		User user2 = new User(UUID.randomUUID(), "bob", "000", "bob@tourGuide.com");
+		User user3 = new User(UUID.randomUUID(), "don", "000", "don@tourGuide.com");
+				
+		List<User> users = new ArrayList<>();
+		users.add(user);
+		users.add(user2);
+		users.add(user3);
+		
+		// WHEN
+		JSONObject result = new JSONObject();
+		for(User u : users) {
+			result.put(u.getUserId().toString(), JsonStream.serialize(tourGuideService.trackUserLocation(u).location));
+		}
+		//	{
+		//     "019b04a9-067a-4c76-8817-ee75088c3822": {"longitude":-48.188821,"latitude":74.84371} 
+		//     ...
+		//  }
+		// THEN
+		assertEquals(3, result.length());
+	}
+	
 }
