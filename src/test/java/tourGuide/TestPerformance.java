@@ -11,7 +11,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.common.collect.Lists;
 import com.jsoniter.output.JsonStream;
 
 import rewardCentral.RewardCentral;
@@ -127,14 +126,14 @@ public class TestPerformance {
 		// V2
 		int nombre = 1000;
 		ExecutorService executorService = Executors.newFixedThreadPool(nombre);
-		List<Future> futures = new ArrayList<>();
+		List<Future<?>> futures = new ArrayList<>();
 	
 		// WHEN
 		for(User u : allUsers) {
 			futures.add(executorService.submit( (
 					) -> rewardsService.calculateRewards(u) ));
 			}
-			for(Future future : futures) {
+			for(Future<?> future : futures) {
 				future.get();
 			}	
 			executorService.shutdown();

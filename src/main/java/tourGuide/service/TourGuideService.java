@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
@@ -109,7 +110,7 @@ public class TourGuideService {
 	 */
 	public JSONObject getAllUsersLocation(List<User> users) throws JSONException {
 		JSONObject jsonAllUsersLocations = new JSONObject();
-		
+		//Locale.setDefault(Locale.US);
 		////V2 - ok
 		for(User user : users) {
 		jsonAllUsersLocations.put(user.getUserId().toString(), JsonStream.serialize(trackUserLocation(user).location));
@@ -191,7 +192,7 @@ public class TourGuideService {
 		
 		int i=0;
 		for (Map.Entry<Attraction, Double> entry : mapSorted.entrySet()) {		
-			while( i < attractionsProposedToUser ) { // le nombre d'attractionsWanted pourrait être géré dans une variable
+			while( i < 5 ) { // le nombre d'attractionsWanted pourrait être géré dans une variable
 				Attraction key = entry.getKey();
 				Double value = entry.getValue();
 							
