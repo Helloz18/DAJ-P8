@@ -3,8 +3,10 @@ package tourGuide.service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -12,6 +14,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -32,6 +36,7 @@ import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.tracker.Tracker;
 import tourGuide.user.User;
+import tourGuide.user.UserPreferences;
 import tourGuide.user.UserReward;
 import tripPricer.Provider;
 import tripPricer.TripPricer;
@@ -44,6 +49,7 @@ public class TourGuideService {
 	private final TripPricer tripPricer = new TripPricer();
 	public final Tracker tracker;
 	boolean testMode = true;
+	public UserPreferences userPreferences = new UserPreferences();
 	
 	int attractionsProposedToUser = 5; // pourrait être mise dans le fichier de propriété du projet
 	
@@ -86,14 +92,44 @@ public class TourGuideService {
 		}
 	}
 	
+	/**
+	 * cumulativeRewardPoints : quel que soit le chiffre, la liste affiche toujours 5 attractions
+	 * 1 on récupère les points gagnés par l'utilisateur
+	 * 2 en fonction de préférences de l'utilisateurs (nb d'adultes, nb d'enfants, durée du voyage) et des points cummulés, 
+	 * on récupère une liste d'attractions potentielles.
+	 * PB autres préférences ? : le montant maximum des préférences utilisateur n'est pas pris en compte
+	 * 	Est-ce que le ticket quantity doit être pris en compte aussi ? : on va dire oui : il ne faut pas dépasser le tarif *
+	 * 	quelque soit le nombre de tickets voulus. Si une attraction coute 100 et que le user a défini qu'il voulait toujours
+	 * 	2 tickets, et qu'il a défini son max à 100, alors l'attraction ne doit pas lui être présentée.
+	 * 	nb ticket * prix de l'attraction comparé au max value
+	 * 	Prendre aussi en compte le prix minimal (si des gens veulent éviter les attractions gratuites (?) )
+	 * 	il faudrait ajouter maintenant des conditions supplémentaires par rapport à la liste des providers reçus
+	 * @param user
+	 * @return
+	 */
 	public List<Provider> getTripDeals(User user) {
+		
+		///// V1
+		TripPricerV2 trip = new TripPricerV2();
 		int cumulatativeRewardPoints = user.getUserRewards().stream().mapToInt(i -> i.getRewardPoints()).sum();
-		List<Provider> providers = tripPricer.getPrice(tripPricerApiKey, user.getUserId(), user.getUserPreferences().getNumberOfAdults(), 
+		List<Provider> providers = trip.getPrice(tripPricerApiKey, user.getUserId(),user.getUserPreferences().getNumberOfAdults(), 
 				user.getUserPreferences().getNumberOfChildren(), user.getUserPreferences().getTripDuration(), cumulatativeRewardPoints);
 		user.setTripDeals(providers);
 		return providers;
+
+		///// V0
+//		int cumulatativeRewardPoints = user.getUserRewards().stream().mapToInt(i -> i.getRewardPoints()).sum();
+//		List<Provider> providers = tripPricer.getPrice(tripPricerApiKey, user.getUserId(),user.getUserPreferences().getNumberOfAdults(), 
+//				user.getUserPreferences().getNumberOfChildren(), user.getUserPreferences().getTripDuration(), cumulatativeRewardPoints);
+//		user.setTripDeals(providers);
+//		return providers;
 	}
 	
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
 	public VisitedLocation trackUserLocation(User user) {
 
 		VisitedLocation visitedLocation = gpsUtil.getUserLocation(user.getUserId());

@@ -45,7 +45,7 @@ public class RewardsService {
 		List<Attraction> attractions = gpsUtil.getAttractions();
 		
 
-		///V2 
+		///V2 ok
 		for(int i=0; i < userLocations.size(); i++) {
 			for(Attraction attraction : attractions) {
 				if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {

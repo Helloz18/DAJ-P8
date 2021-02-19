@@ -1,0 +1,8 @@
+tourGuide/TestRewardsService.java
+ tourGuide.TestRewardsService
+tourGuide/TestPerformance.java
+ tourGuide.TestPerformance
+tourGuide/TestTourGuideService.java
+ tourGuide.TestTourGuideService
+tourGuide/TestTourGuideController.java
+ tourGuide.TestTourGuideController

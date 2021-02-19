@@ -14,6 +14,10 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
+import javax.money.CurrencyUnit;
+import javax.money.Monetary;
+
+import org.javamoney.moneta.Money;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,7 +34,10 @@ import rewardCentral.RewardCentral;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TourGuideService;
 import tourGuide.user.User;
+import tourGuide.user.UserPreferences;
+import tourGuide.user.UserReward;
 import tripPricer.Provider;
+import tripPricer.TripPricer;
 
 public class TestTourGuideService {
 	
@@ -96,23 +103,21 @@ public class TestTourGuideService {
 		
 		assertEquals(user.getUserId(), visitedLocation.userId);
 	}
-	
-	//TODO (à corriger)
+
+	//Méthode getTripDeals à corriger
 	@Test
 	public void getTripDeals() {
-//		int cumulatativeRewardPoints = user.getUserRewards().stream().mapToInt(i -> i.getRewardPoints()).sum();
-//		List<Provider> providers = tripPricer.getPrice(tripPricerApiKey, user.getUserId(), user.getUserPreferences().getNumberOfAdults(), 
-//				user.getUserPreferences().getNumberOfChildren(), user.getUserPreferences().getTripDuration(), cumulatativeRewardPoints);
-//		user.setTripDeals(providers);
-	
-		
-		
-		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 
+		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
+	
+		// dans l'énoncé : pb sur le nb d'enfants et la durée du voyage ?
 		List<Provider> providers = tourGuideService.getTripDeals(user);
-		
+
 		tourGuideService.tracker.stopTracking();
 		
+		// D'après cette assertion, on veut que le user se voit proposer 10 attractions
+		// : dans la classe trip pricer 10 attractions existent, on doit donc toutes les récupérer
+		// public String getProviderName(String apiKey, int adults)
 		assertEquals(10, providers.size());
 	}
 	
