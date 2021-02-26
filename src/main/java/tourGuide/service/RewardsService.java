@@ -123,5 +123,10 @@ public class RewardsService {
         double statuteMiles = STATUTE_MILES_PER_NAUTICAL_MILE * nauticalMiles;
         return statuteMiles;
 	}
+	
+	public List<UserReward> getUserRewards(User user) {
+		return user.getUserRewards();
+	}
+	
 
 }

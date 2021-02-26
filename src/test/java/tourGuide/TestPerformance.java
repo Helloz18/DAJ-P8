@@ -15,8 +15,11 @@ import com.jsoniter.output.JsonStream;
 
 import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
+import tourGuide.service.AttractionsService;
+import tourGuide.service.LocationsService;
 import tourGuide.service.RewardsService;
-import tourGuide.service.TourGuideService;
+import tourGuide.service.TestService;
+import tourGuide.service.UserService;
 import tourGuide.tracker.Tracker;
 import tourGuide.user.User;
 
@@ -29,13 +32,20 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class TestPerformance {
+	
+	GpsUtil gpsUtil = new GpsUtil();
+	RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
+	TestService testService = new TestService(gpsUtil, rewardsService);
 
+	UserService userService = new UserService();
+	LocationsService locationsService = new LocationsService();
+	AttractionsService attractionsService = new AttractionsService();
+	
 	/*
 	 * A note on performance improvements:
 	 *     
@@ -56,10 +66,6 @@ public class TestPerformance {
 	 *          assertTrue(TimeUnit.MINUTES.toSeconds(20) >= TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()));
 	 */
 	
-	//déplacement de ces déclarations en dehors de chaque test
-	GpsUtil gpsUtil = new GpsUtil();
-	RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
-	TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
 	
 	private Logger logger = LoggerFactory.getLogger(Tracker.class);
 	
@@ -76,7 +82,7 @@ public class TestPerformance {
 	public void highVolumeTrackLocation() throws InterruptedException, ExecutionException {
 		// GIVEN
 		List<User> allUsers = new ArrayList<>();
-		allUsers = tourGuideService.getAllUsers();		
+		allUsers = userService.getAllUsers();		
 
 		StopWatch stopWatch = new StopWatch();
 		stopWatch.start();
@@ -88,7 +94,7 @@ public class TestPerformance {
 		
 		// WHEN
 		for(User user : allUsers) {
-			futures.add(executorService.submit( () -> tourGuideService.trackUserLocation(user) ));
+			futures.add(executorService.submit( () -> locationsService.trackUserLocation(user) ));
 		}
 		for ( Future<VisitedLocation> future : futures ) {
 			VisitedLocation visitedLocation = future.get();
@@ -100,7 +106,7 @@ public class TestPerformance {
 		//tourGuideService.trackUserLocation(user);
 
 		stopWatch.stop();
-		tourGuideService.tracker.stopTracking();
+		testService.tracker.stopTracking();
 
 		// THEN
 		assertEquals(InternalTestHelper.getInternalUserNumber(), futures.size());
@@ -120,7 +126,7 @@ public class TestPerformance {
 		//V1
 	    Attraction attraction = gpsUtil.getAttractions().get(0);
 		List<User> allUsers = new ArrayList<>();
-		allUsers = tourGuideService.getAllUsers();
+		allUsers = userService.getAllUsers();
 		allUsers.forEach(u -> u.addToVisitedLocations(new VisitedLocation(u.getUserId(), attraction, new Date())));
 	     
 		// V2
@@ -145,7 +151,7 @@ public class TestPerformance {
 			assertTrue(user.getUserRewards().size() > 0);
 		}
 		stopWatch.stop();
-		tourGuideService.tracker.stopTracking();
+		testService.tracker.stopTracking();
 		
 		// THEN
 
@@ -161,7 +167,7 @@ public class TestPerformance {
 
 		//GIVEN
 		List<User> allUsers = new ArrayList<>();
-		allUsers = tourGuideService.getAllUsers();
+		allUsers = userService.getAllUsers();
 		int nombre = 1000;
 		ExecutorService executorService = Executors.newFixedThreadPool(nombre);
 		List<Future<JSONObject>> futures = new ArrayList<>();
@@ -169,18 +175,22 @@ public class TestPerformance {
 		//WHEN
 		for(User u : allUsers) {
 		futures.add(executorService.submit( (
-				) -> tourGuideService.getFiveNearAttractionsWithDistanceAndRewardsFromCurrentUserLocation(u) ));
+				) -> attractionsService.getFiveNearAttractionsWithDistanceAndRewardsFromCurrentUserLocation(u) ));
 		}
+		List<JSONObject> list = new ArrayList<>();
+		
 		for(Future<JSONObject> future : futures) {
 			JSONObject result = future.get();
-			assertEquals(5, result.getJSONArray("attraction").length());
+			list.add(result);			
 		}	
 		executorService.shutdown();
 		
 		stopWatch.stop();
-		tourGuideService.tracker.stopTracking();
+		testService.tracker.stopTracking();
 		
 		//THEN
+		assertEquals(InternalTestHelper.getInternalUserNumber(),list.size() );
+		
 		System.out.println("highVolumeGetFive: Time Elapsed: " + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()) + " seconds."); 
 		assertTrue(TimeUnit.MINUTES.toSeconds(20) >= TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()));
 	}
@@ -193,7 +203,7 @@ public class TestPerformance {
 
 		//GIVEN
 		List<User> allUsers = new ArrayList<>();
-		allUsers = tourGuideService.getAllUsers();
+		allUsers = userService.getAllUsers();
 		JSONObject jsonAllUsersLocations = new JSONObject();
 		
 		//WHEN
@@ -205,7 +215,7 @@ public class TestPerformance {
 		for(User user : allUsers) {
 		futures.add(executorService.submit( (
 				) -> jsonAllUsersLocations.put(
-						user.getUserId().toString(), JsonStream.serialize(tourGuideService.trackUserLocation(user).location))));
+						user.getUserId().toString(), JsonStream.serialize(locationsService.trackUserLocation(user).location))));
 		}
 		List<JSONObject> list = new ArrayList<>();
 		for(Future<JSONObject> future : futures) {
@@ -215,7 +225,7 @@ public class TestPerformance {
 		executorService.shutdown();
 
 		stopWatch.stop();
-		tourGuideService.tracker.stopTracking();
+		testService.tracker.stopTracking();
 	
 		//THEN
 		assertEquals(InternalTestHelper.getInternalUserNumber(),list.size() );

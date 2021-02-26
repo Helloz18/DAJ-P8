@@ -14,8 +14,9 @@ import gpsUtil.GpsUtil;
 import gpsUtil.location.Attraction;
 import gpsUtil.location.VisitedLocation;
 import rewardCentral.RewardCentral;
+import tourGuide.service.LocationsService;
 import tourGuide.service.RewardsService;
-import tourGuide.service.TourGuideService;
+import tourGuide.service.TestService;
 import tourGuide.user.User;
 import tourGuide.user.UserReward;
 
@@ -25,8 +26,8 @@ public class TestRewardsService {
 	
 	GpsUtil gpsUtil = new GpsUtil();
 	RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
-	TourGuideService tourGuideService = new TourGuideService(gpsUtil, rewardsService);
-
+	TestService testService = new TestService(gpsUtil, rewardsService);
+	LocationsService locationsService = new LocationsService();
 
 	@Before
 	public void init() {
@@ -38,9 +39,9 @@ public class TestRewardsService {
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 		Attraction attraction = gpsUtil.getAttractions().get(0);
 		user.addToVisitedLocations(new VisitedLocation(user.getUserId(), attraction, new Date()));
-		tourGuideService.trackUserLocation(user); // appelle calculate rewards
+		locationsService.trackUserLocation(user); // appelle calculate rewards
 		List<UserReward> userRewards = user.getUserRewards();
-		tourGuideService.tracker.stopTracking();
+		testService.tracker.stopTracking();
 		assertTrue(userRewards.size() == 1);
 	}
 	
@@ -64,8 +65,8 @@ public class TestRewardsService {
 		Attraction attraction = gpsUtil.getAttractions().get(0);
 		user.addToVisitedLocations(new VisitedLocation(user.getUserId(), attraction, new Date()));
 		rewardsService.calculateRewards(user);
-		List<UserReward> userRewards = tourGuideService.getUserRewards(user);
-		tourGuideService.tracker.stopTracking();
+		List<UserReward> userRewards = rewardsService.getUserRewards(user);
+		testService.tracker.stopTracking();
 
 		// V1	
 //		rewardsService.calculateRewards(tourGuideService.getAllUsers().get(0));

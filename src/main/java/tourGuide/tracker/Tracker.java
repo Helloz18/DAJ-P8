@@ -9,18 +9,20 @@ import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import tourGuide.service.TourGuideService;
+import tourGuide.service.LocationsService;
+import tourGuide.service.TestService;
 import tourGuide.user.User;
 
 public class Tracker extends Thread {
 	private Logger logger = LoggerFactory.getLogger(Tracker.class);
 	private static final long trackingPollingInterval = TimeUnit.MINUTES.toSeconds(5);
 	private final ExecutorService executorService = Executors.newSingleThreadExecutor();
-	private final TourGuideService tourGuideService;
+	private final TestService testService;
 	private boolean stop = false;
+	public LocationsService locationsService;
 
-	public Tracker(TourGuideService tourGuideService) {
-		this.tourGuideService = tourGuideService;
+	public Tracker(TestService testService) {
+		this.testService = testService;
 		
 		executorService.submit(this);
 	}
@@ -34,6 +36,7 @@ public class Tracker extends Thread {
 		executorService.shutdownNow();
 	}
 	
+	
 	@Override
 	public void run() {
 		StopWatch stopWatch = new StopWatch();
@@ -43,10 +46,10 @@ public class Tracker extends Thread {
 				break;
 			}
 			
-			List<User> users = tourGuideService.getAllUsers();
+			List<User> users = testService.getAllUsers();
 			logger.debug("Begin Tracker. Tracking " + users.size() + " users.");
 			stopWatch.start();
-			users.forEach(u -> tourGuideService.trackUserLocation(u));
+			users.forEach(u -> locationsService.trackUserLocation(u));
 			stopWatch.stop();
 			logger.debug("Tracker Time Elapsed: " + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()) + " seconds."); 
 			stopWatch.reset();

@@ -91,7 +91,7 @@ import tripPricer.Provider;
      */
     @RequestMapping(&quot;/getRewards&quot;) 
     public String getRewards(@RequestParam String userName) {
-<span class="nc" id="L94">    	return JsonStream.serialize(tourGuideService.getUserRewards(getUser(userName)));</span>
+<span class="fc" id="L94">    	return JsonStream.serialize(tourGuideService.getUserRewards(getUser(userName)));</span>
     }
     
     /**
@@ -110,9 +110,9 @@ import tripPricer.Provider;
     	//        &quot;019b04a9-067a-4c76-8817-ee75088c3822&quot;: {&quot;longitude&quot;:-48.188821,&quot;latitude&quot;:74.84371} 
     	//        ...
     	//     }
-<span class="nc" id="L113">    	List&lt;User&gt; users = new ArrayList&lt;User&gt;();</span>
-<span class="nc" id="L114">    	users = tourGuideService.getAllUsers();  	</span>
-<span class="nc" id="L115">    	return JsonStream.serialize(tourGuideService.getAllUsersLocation(users));</span>
+<span class="fc" id="L113">    	List&lt;User&gt; users = new ArrayList&lt;User&gt;();</span>
+<span class="fc" id="L114">    	users = tourGuideService.getAllUsers();  	</span>
+<span class="fc" id="L115">    	return JsonStream.serialize(tourGuideService.getAllUsersLocation(users));</span>
     }
     
     /**
@@ -123,8 +123,8 @@ import tripPricer.Provider;
      */
     @RequestMapping(&quot;/getTripDeals&quot;)
     public String getTripDeals(@RequestParam String userName) {
-<span class="nc" id="L126">    	List&lt;Provider&gt; providers = tourGuideService.getTripDeals(getUser(userName));</span>
-<span class="nc" id="L127">    	return JsonStream.serialize(providers);</span>
+<span class="fc" id="L126">    	List&lt;Provider&gt; providers = tourGuideService.getTripDeals(getUser(userName));</span>
+<span class="fc" id="L127">    	return JsonStream.serialize(providers);</span>
     }
     
     /**
