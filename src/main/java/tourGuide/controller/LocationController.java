@@ -2,6 +2,7 @@ package tourGuide.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jsoniter.output.JsonStream;
 
+import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import tourGuide.service.LocationsService;
 import tourGuide.service.UserService;
@@ -36,6 +38,18 @@ public class LocationController {
 		return JsonStream.serialize(visitedLocation.location);
     }
     
+    @RequestMapping("/getLocation2") 
+    public gpsUtil.location.Location getLocation2(@RequestParam String userName) {
+    	VisitedLocation visitedLocation = locationsService.getUserLocation(userService.getUser(userName));
+    	System.out.println(visitedLocation.location);
+		return visitedLocation.location;
+    }
+    
+    @RequestMapping("/getLocation3")
+    public Location getLocation3(@RequestParam String userName) {
+    	return locationsService.getLocation(userService.getUser(userName));
+    }
+    
     /**
      * 
      * @return
@@ -52,6 +66,7 @@ public class LocationController {
     	//        "019b04a9-067a-4c76-8817-ee75088c3822": {"longitude":-48.188821,"latitude":74.84371} 
     	//        ...
     	//     }
+		Locale.setDefault(Locale.US);
     	List<User> users = new ArrayList<User>();
     	users = userService.getAllUsers();  	
     	return JsonStream.serialize(locationsService.getAllUsersLocation(users));

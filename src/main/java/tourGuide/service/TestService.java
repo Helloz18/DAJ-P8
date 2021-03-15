@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -17,12 +18,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import gpsUtil.GpsUtil;
+import gpsUtil.location.Attraction;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.tracker.Tracker;
 import tourGuide.user.User;
+import tourGuide.user.UserReward;
 
 @Service
 public class TestService {
@@ -89,6 +92,8 @@ public class TestService {
 			String email = userName + "@tourGuide.com";
 			User user = new User(UUID.randomUUID(), userName, phone, email);
 			generateUserLocationHistory(user);
+			//ajout de la méthode pour les rewards
+			generateUserRewards(user);
 			
 			internalUserMap.put(userName, user);
 		});
@@ -99,6 +104,19 @@ public class TestService {
 		IntStream.range(0, 1).forEach(i-> {
 			user.addToVisitedLocations(new VisitedLocation(
 					user.getUserId(), new Location(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()));
+		});
+	}
+	
+	/**
+	 * méthode ajouter pour pouvoir tester /getRewards
+	 * @param user
+	 */
+	private void generateUserRewards(User user) {
+		IntStream.range(0, 1).forEach(i-> {
+			user.addUserReward(new UserReward(
+					new VisitedLocation(user.getUserId(), new Location(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()),
+					new Attraction("nameOfAttraction", "cityOfAttraction", "stateOfAttraction", generateRandomLatitude(), generateRandomLongitude()),
+					(int) (Math.random() * ( 1000 - 100 ))));
 		});
 	}
 	

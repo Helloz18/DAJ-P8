@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AttractionsService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TourGuide</a> &gt; <a href="index.source.html" class="el_package">tourGuide.service</a> &gt; <span class="el_source">AttractionsService.java</span></div><h1>AttractionsService.java</h1><pre class="source lang-java linenums">package tourGuide.service;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+
+import com.jsoniter.output.JsonStream;
+
+import gpsUtil.GpsUtil;
+import gpsUtil.location.Attraction;
+import gpsUtil.location.Location;
+import gpsUtil.location.VisitedLocation;
+import rewardCentral.RewardCentral;
+import tourGuide.user.User;
+
+@Service
+<span class="fc" id="L34">public class AttractionsService {</span>
+	
+<span class="fc" id="L36">	int attractionsProposedToUser = 5; // pourrait Ãªtre mise dans le fichier de propriÃ©tÃ© du projet</span>
+	
+<span class="fc" id="L38">	GpsUtil gpsUtil = new GpsUtil();</span>
+<span class="fc" id="L39">	RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());</span>
+	
+<span class="fc" id="L41">	LocationsService locationsService = new LocationsService();</span>
+<span class="fc" id="L42">	String URL = &quot;http://localhost:5000&quot;;</span>
+
+	/**
+	 * this method will get all attractions, calculate the distance between a visitedLocation and each attraction
+	 * then these values will be saved in a map which will be sorted by distance.
+	 * @param visitedLocation
+	 * @return a map &lt;Attraction (attraction), Double (distance)&gt; sorted by distance
+	 * @throws ExecutionException 
+	 * @throws InterruptedException 
+	 */
+	public Map&lt;Attraction, Double&gt; getAttractionsByDistance(VisitedLocation visitedLocation) throws InterruptedException, ExecutionException {
+<span class="fc" id="L53">		List&lt;Attraction&gt; attractions = gpsUtil.getAttractions();</span>
+<span class="fc" id="L54">		Map&lt;Attraction, Double&gt; attractionDistance = new HashMap&lt;Attraction, Double&gt;();</span>
+
+<span class="fc" id="L56">		attractions.parallelStream().forEach((attraction) -&gt; {</span>
+			//V1 sans service externe
+			//attractionDistance.put(attraction, rewardsService.getDistance(attraction, visitedLocation.location));
+			//V2 avec service externe et requÃªte get
+<span class="fc" id="L60">			Location loc1 = new Location(attraction.longitude, attraction.latitude);</span>
+<span class="fc" id="L61">			String location1 = JsonStream.serialize(loc1);</span>
+<span class="fc" id="L62">			String location2 = JsonStream.serialize(visitedLocation.location);</span>
+<span class="fc" id="L63">			ResponseEntity&lt;Double&gt; reponse = new RestTemplate().getForEntity(URL+&quot;/distance?location1={location1}&amp;location2={location2}&quot;, Double.class, location1,location2);</span>
+<span class="fc" id="L64">			attractionDistance.put(attraction, reponse.getBody());			</span>
+			
+			//V3 avec service externe et requÃªte post
+//			HttpHeaders headers = new HttpHeaders();
+//			headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+//			MultiValueMap&lt;String, String&gt; map = new LinkedMultiValueMap&lt;String, String&gt;();
+//			Location loc1 = new Location(attraction.longitude, attraction.latitude);		
+//			map.add(&quot;location1&quot;, JsonStream.serialize(loc1));
+//			map.add(&quot;location2&quot;, JsonStream.serialize(visitedLocation.location));
+//			HttpEntity&lt;MultiValueMap&lt;String, String&gt;&gt; requeteHttp = new HttpEntity&lt;MultiValueMap&lt;String, String&gt;&gt;(map, headers);
+//			ResponseEntity&lt;Double&gt; reponse = new RestTemplate().postForEntity(URL+&quot;/distance&quot;, requeteHttp , Double.class);
+//			attractionDistance.put(attraction,  reponse.getBody());
+<span class="fc" id="L76">			});		</span>
+
+<span class="fc" id="L78">		Map&lt;Attraction, Double&gt; mapSortedByValue = attractionDistance.entrySet().parallelStream()</span>
+<span class="fc" id="L79">			.sorted(Map.Entry.comparingByValue())</span>
+<span class="pc" id="L80">			.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -&gt; e1, LinkedHashMap::new));</span>
+
+<span class="fc" id="L82">		return mapSortedByValue;</span>
+	}
+	
+	
+	/**
+	 * 
+	 * @param User
+	 * @return a JSON array of five objects such as :
+	 * [
+	 * 	{
+	 * 		&quot;distance&quot;:8765.59744222102,
+	 * 		&quot;latitude&quot;:61.218887,
+	 * 		&quot;name&quot;:&quot;McKinley Tower&quot;,
+	 * 		&quot;rewardPoints&quot;:&quot;154&quot;,
+	 * 		&quot;longitude&quot;:-149.877502
+	 * 	}, ...
+	 * ]
+	 * @throws JSONException 
+	 * @throws ExecutionException 
+	 * @throws InterruptedException 
+	 */
+	public JSONObject getFiveNearAttractionsWithDistanceAndRewardsFromCurrentUserLocation(User user) throws JSONException, InterruptedException, ExecutionException {
+<span class="fc" id="L104">		VisitedLocation visitedLocation = locationsService.trackUserLocation(user);</span>
+<span class="fc" id="L105">		Map&lt;Attraction, Double&gt; mapSorted = getAttractionsByDistance(visitedLocation);</span>
+<span class="fc" id="L106">		RewardCentral rewardCentral = new RewardCentral();</span>
+<span class="fc" id="L107">		JSONArray attractionsWanted = new JSONArray();</span>
+		
+		
+<span class="fc" id="L110">		Iterator&lt;Entry&lt;Attraction, Double&gt;&gt; iterator = mapSorted.entrySet().iterator();</span>
+<span class="fc" id="L111">		int j =0;</span>
+<span class="pc bpc" id="L112" title="1 of 4 branches missed.">		while(iterator.hasNext() &amp;&amp;  j&lt; attractionsProposedToUser ) {</span>
+<span class="fc" id="L113">			Map.Entry&lt;Attraction, Double&gt; mapentry = iterator.next();</span>
+			
+<span class="fc" id="L115">			Attraction key = (Attraction) mapentry.getKey();</span>
+<span class="fc" id="L116">			Double value = (Double) mapentry.getValue();			</span>
+			
+<span class="fc" id="L118">			JSONObject attraction = new JSONObject();	</span>
+<span class="fc" id="L119">			attraction.put(&quot;name&quot;, key.attractionName);</span>
+<span class="fc" id="L120">			attraction.put(&quot;latitude&quot;, key.latitude);</span>
+<span class="fc" id="L121">			attraction.put(&quot;longitude&quot;, key.longitude);</span>
+<span class="fc" id="L122">			attraction.put(&quot;rewardPoints&quot;, JsonStream.serialize(rewardCentral.getAttractionRewardPoints(</span>
+<span class="fc" id="L123">					key.attractionId, user.getUserId())));</span>
+<span class="fc" id="L124">			attraction.put(&quot;distance&quot;, value);</span>
+<span class="fc" id="L125">			attractionsWanted.put(attraction);</span>
+			
+<span class="fc" id="L127">			j++;	</span>
+<span class="fc" id="L128">		}</span>
+	
+<span class="fc" id="L130">		JSONObject result = new JSONObject();</span>
+<span class="fc" id="L131">		result.put(&quot;user's location&quot;,JsonStream.serialize(visitedLocation.location));</span>
+<span class="fc" id="L132">		result.put(&quot;attraction&quot;, attractionsWanted);</span>
+		
+<span class="fc" id="L134">		return result;</span>
+		}
+
+//	HttpHeaders headers = new HttpHeaders();
+//	headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+//	MultiValueMap&lt;String, Location&gt; map = new LinkedMultiValueMap&lt;String, Location&gt;();
+//	map.add(&quot;loc1&quot;, attraction);
+//	map.add(&quot;loc2&quot;, visitedLocation.location);
+//	HttpEntity&lt;MultiValueMap&lt;String, Location&gt;&gt; requeteHttp = new HttpEntity&lt;MultiValueMap&lt;String, Location&gt;&gt;(map, headers);
+//	ResponseEntity&lt;Double&gt; reponse = new RestTemplate().postForEntity(URL+&quot;/getDistance/loc1?loc1=&quot;+attraction+&quot;/loc2?loc2=&quot;+visitedLocation.location, headers , Double.class);
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

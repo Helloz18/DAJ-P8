@@ -9,6 +9,12 @@ import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import gpsUtil.GpsUtil;
 import gpsUtil.location.Attraction;
@@ -58,8 +64,9 @@ public class TestRewardsService {
 	// méthode très longue
 	@Test
 	public void testCalculateRewards() {
-		rewardsService.setProximityBuffer(Integer.MAX_VALUE);
-		
+		// ce paramètre pour le test ne peut pas être paramétré ici car il se trouve dans le service externe
+		//rewardsService.setProximityBuffer(Integer.MAX_VALUE);
+				
 		// V2 - paramétrer un utilisateur
 		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 		Attraction attraction = gpsUtil.getAttractions().get(0);
@@ -72,7 +79,7 @@ public class TestRewardsService {
 //		rewardsService.calculateRewards(tourGuideService.getAllUsers().get(0));
 //		List<UserReward> userRewards = tourGuideService.getUserRewards(tourGuideService.getAllUsers().get(0));
 //		tourGuideService.tracker.stopTracking();
-
+		System.out.println(userRewards.size());
 		assertTrue(userRewards.size() == 1);
 	}
 	

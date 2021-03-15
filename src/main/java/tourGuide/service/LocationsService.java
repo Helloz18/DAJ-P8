@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.jsoniter.output.JsonStream;
 
 import gpsUtil.GpsUtil;
+import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import rewardCentral.RewardCentral;
 import tourGuide.user.User;
@@ -27,6 +28,10 @@ public class LocationsService {
 		return visitedLocation;
 	}
 	
+	public Location getLocation(User user) {
+		return user.getLastVisitedLocation().location;
+	}
+	
 	/**
 	 * 
 	 * @param user
@@ -39,6 +44,7 @@ public class LocationsService {
 		rewardsService.calculateRewards(user);
 		return visitedLocation;
 	}
+	
 
 	/**
 	 * This method is used by product Owner to see all the user locations.
@@ -47,12 +53,19 @@ public class LocationsService {
 	 * @throws JSONException
 	 */
 	public JSONObject getAllUsersLocation(List<User> users) throws JSONException {
+		//V3
+		// ne pas utiliser trackUserLocation car calculate rewards prend trop de temps
+		// utiliser uniquement getLocation()
+			
 		JSONObject jsonAllUsersLocations = new JSONObject();
+		for(User user : users) {
+			jsonAllUsersLocations.put(user.getUserId().toString(), JsonStream.serialize(getLocation(user)));
+		}
 		//Locale.setDefault(Locale.US);
 		////V2 - ok
-		for(User user : users) {
-		jsonAllUsersLocations.put(user.getUserId().toString(), JsonStream.serialize(trackUserLocation(user).location));
-		}
+//		for(User user : users) {
+//		jsonAllUsersLocations.put(user.getUserId().toString(), JsonStream.serialize(trackUserLocation(user).location));
+//		}
 		
 		/////v1
 //		users.parallelStream().forEach((user) -> {

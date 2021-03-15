@@ -1,21 +1,31 @@
 package tourGuide.service;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import com.jsoniter.output.JsonStream;
 
 import gpsUtil.GpsUtil;
 import gpsUtil.location.Attraction;
+import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import rewardCentral.RewardCentral;
 import tourGuide.user.User;
@@ -29,7 +39,7 @@ public class AttractionsService {
 	RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
 	
 	LocationsService locationsService = new LocationsService();
-	
+	String URL = "http://localhost:5000";
 
 	/**
 	 * this method will get all attractions, calculate the distance between a visitedLocation and each attraction
@@ -44,8 +54,26 @@ public class AttractionsService {
 		Map<Attraction, Double> attractionDistance = new HashMap<Attraction, Double>();
 
 		attractions.parallelStream().forEach((attraction) -> {
-			attractionDistance.put(attraction, rewardsService.getDistance(attraction, visitedLocation.location));
-		});		
+			//V1 sans service externe
+			//attractionDistance.put(attraction, rewardsService.getDistance(attraction, visitedLocation.location));
+			//V2 avec service externe et requête get
+			Location loc1 = new Location(attraction.longitude, attraction.latitude);
+			String location1 = JsonStream.serialize(loc1);
+			String location2 = JsonStream.serialize(visitedLocation.location);
+			ResponseEntity<Double> reponse = new RestTemplate().getForEntity(URL+"/distance?location1={location1}&location2={location2}", Double.class, location1,location2);
+			attractionDistance.put(attraction, reponse.getBody());			
+			
+			//V3 avec service externe et requête post
+//			HttpHeaders headers = new HttpHeaders();
+//			headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+//			MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+//			Location loc1 = new Location(attraction.longitude, attraction.latitude);		
+//			map.add("location1", JsonStream.serialize(loc1));
+//			map.add("location2", JsonStream.serialize(visitedLocation.location));
+//			HttpEntity<MultiValueMap<String, String>> requeteHttp = new HttpEntity<MultiValueMap<String, String>>(map, headers);
+//			ResponseEntity<Double> reponse = new RestTemplate().postForEntity(URL+"/distance", requeteHttp , Double.class);
+//			attractionDistance.put(attraction,  reponse.getBody());
+			});		
 
 		Map<Attraction, Double> mapSortedByValue = attractionDistance.entrySet().parallelStream()
 			.sorted(Map.Entry.comparingByValue())
@@ -78,23 +106,25 @@ public class AttractionsService {
 		RewardCentral rewardCentral = new RewardCentral();
 		JSONArray attractionsWanted = new JSONArray();
 		
-		int i=0;
-		for (Map.Entry<Attraction, Double> entry : mapSorted.entrySet()) {		
-			while( i < attractionsProposedToUser ) { // le nombre d'attractionsWanted pourrait être géré dans une variable
-				Attraction key = entry.getKey();
-				Double value = entry.getValue();
-							
-				JSONObject attraction = new JSONObject();	
-				attraction.put("name", key.attractionName);
-				attraction.put("latitude", key.latitude);
-				attraction.put("longitude", key.longitude);
-				attraction.put("rewardPoints", JsonStream.serialize(rewardCentral.getAttractionRewardPoints(
-						key.attractionId, user.getUserId())));
-				attraction.put("distance", value);
-				attractionsWanted.put(attraction);
+		
+		Iterator<Entry<Attraction, Double>> iterator = mapSorted.entrySet().iterator();
+		int j =0;
+		while(iterator.hasNext() &&  j< attractionsProposedToUser ) {
+			Map.Entry<Attraction, Double> mapentry = iterator.next();
 			
-				i++;
-			}
+			Attraction key = (Attraction) mapentry.getKey();
+			Double value = (Double) mapentry.getValue();			
+			
+			JSONObject attraction = new JSONObject();	
+			attraction.put("name", key.attractionName);
+			attraction.put("latitude", key.latitude);
+			attraction.put("longitude", key.longitude);
+			attraction.put("rewardPoints", JsonStream.serialize(rewardCentral.getAttractionRewardPoints(
+					key.attractionId, user.getUserId())));
+			attraction.put("distance", value);
+			attractionsWanted.put(attraction);
+			
+			j++;	
 		}
 	
 		JSONObject result = new JSONObject();
@@ -103,5 +133,13 @@ public class AttractionsService {
 		
 		return result;
 		}
+
+//	HttpHeaders headers = new HttpHeaders();
+//	headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+//	MultiValueMap<String, Location> map = new LinkedMultiValueMap<String, Location>();
+//	map.add("loc1", attraction);
+//	map.add("loc2", visitedLocation.location);
+//	HttpEntity<MultiValueMap<String, Location>> requeteHttp = new HttpEntity<MultiValueMap<String, Location>>(map, headers);
+//	ResponseEntity<Double> reponse = new RestTemplate().postForEntity(URL+"/getDistance/loc1?loc1="+attraction+"/loc2?loc2="+visitedLocation.location, headers , Double.class);
 
 }

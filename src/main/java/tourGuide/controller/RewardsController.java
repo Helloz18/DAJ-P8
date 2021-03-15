@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.jsoniter.output.JsonStream;
-
 import tourGuide.service.RewardsService;
 import tourGuide.service.UserService;
 

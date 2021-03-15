@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TripPricerService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">TourGuide</a> &gt; <a href="index.source.html" class="el_package">tourGuide.service</a> &gt; <span class="el_source">TripPricerService.java</span></div><h1>TripPricerService.java</h1><pre class="source lang-java linenums">package tourGuide.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
+
+import org.javamoney.moneta.Money;
+import org.springframework.beans.factory.annotation.Value;
+
+import tourGuide.user.User;
+import tripPricer.Provider;
+import tripPricer.TripPricer;
+
+<span class="fc" id="L15">public class TripPricerService extends TripPricer {</span>
+	
+	@Value(&quot;${tripPricerApiKey}&quot;)
+	private String tripPricerApiKey;
+	
+<span class="fc" id="L20">	TripPricer tripPricer = new TripPricer();</span>
+
+	
+	public List&lt;Provider&gt; getPrice(
+			String apiKey, int adults, int children, int nightsStay, int rewardsPoints, 
+			Money lowerPrice, Money higherPricer){
+<span class="fc" id="L26">		List&lt;Provider&gt; providers = new ArrayList&lt;Provider&gt;();</span>
+               
+<span class="fc" id="L28">		Double price = 0.0;</span>
+		
+<span class="fc bfc" id="L30" title="All 2 branches covered.">		for(int i = 0; i &lt; 10; ++i) { // Ã§a boucle 10 fois donc Ã§a renvoie 10 rÃ©sultats</span>
+<span class="fc" id="L31">            int multiple = ThreadLocalRandom.current().nextInt(100, 700); // tarif alÃ©atoire entre 100 et 700</span>
+            
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">            if(children &gt; 0) {</span>
+<span class="nc" id="L34">            	double childrenDiscount = (double)(children / 3); </span>
+<span class="nc" id="L35">            	price = ((double)(multiple * adults) + (double)(multiple * childrenDiscount)) </span>
+            			* (double)nightsStay + 0.99D - (double)rewardsPoints;
+<span class="nc" id="L37">            } else {</span>
+<span class="fc" id="L38">            	price = (double)(multiple * adults) * (double)nightsStay + 0.99D - (double)rewardsPoints;</span>
+            }
+<span class="pc bpc" id="L40" title="1 of 2 branches missed.">            if (price &lt; 0.0D) {</span>
+<span class="nc" id="L41">                price = 0.0D;</span>
+            } 
+<span class="pc bpc" id="L43" title="2 of 4 branches missed.">            if(price &lt; higherPricer.getNumber().doubleValue() &amp;&amp; price &gt; lowerPrice.getNumber().doubleValue() ) {</span>
+<span class="fc" id="L44">            	 String providerName = getProviderName(apiKey, adults);</span>
+<span class="fc" id="L45">                 UUID tripId = UUID.randomUUID();</span>
+<span class="fc" id="L46">                 providers.add(new Provider(tripId, providerName, price));</span>
+            }
+            
+        }
+
+<span class="fc bfc" id="L51" title="All 2 branches covered.">		for(int i=0; i&lt;providers.size(); i++) {</span>
+<span class="fc" id="L52">			System.out.println(providers.get(i).name);</span>
+<span class="fc" id="L53">			System.out.println(providers.get(i).price);</span>
+		}
+<span class="fc" id="L55">		return providers;</span>
+		
+	}
+	
+	/**
+	 * cumulativeRewardPoints : quel que soit le chiffre, la liste affiche toujours 5 attractions
+	 * 1 on rÃ©cupÃ¨re les points gagnÃ©s par l'utilisateur
+	 * 2 en fonction de prÃ©fÃ©rences de l'utilisateurs (nb d'adultes, nb d'enfants, durÃ©e du voyage) et des points cummulÃ©s, 
+	 * on rÃ©cupÃ¨re une liste d'attractions potentielles.
+	 * PB autres prÃ©fÃ©rences ? : le montant maximum des prÃ©fÃ©rences utilisateur n'est pas pris en compte
+	 * 	Est-ce que le ticket quantity doit Ãªtre pris en compte aussi ? : cette option n'est pas applicable, il faudrait
+	 * un ticket quantity pour adultes et pour enfants, et lÃ  c'est global, ne fonctionne pas. n'est pas utilisÃ©.
+	 *  Prendre aussi en compte le prix minimal (si des gens veulent Ã©viter les attractions gratuites (?) )
+	 * 	il faudrait ajouter maintenant des conditions supplÃ©mentaires par rapport Ã  la liste des providers reÃ§us
+	 * @param user
+	 * @return
+	 */
+	public List&lt;Provider&gt; getTripDeals(User user) {
+		
+		///// V1
+<span class="fc" id="L75">		TripPricerService trip = new TripPricerService();</span>
+<span class="pc" id="L76">		int cumulatativeRewardPoints = user.getUserRewards().stream().mapToInt(i -&gt; i.getRewardPoints()).sum();</span>
+<span class="fc" id="L77">		List&lt;Provider&gt; providers = trip.getPrice(tripPricerApiKey,user.getUserPreferences().getNumberOfAdults(), </span>
+<span class="fc" id="L78">				user.getUserPreferences().getNumberOfChildren(), user.getUserPreferences().getTripDuration(), cumulatativeRewardPoints,</span>
+<span class="fc" id="L79">				user.getUserPreferences().getLowerPricePoint(), user.getUserPreferences().getHighPricePoint());</span>
+<span class="fc" id="L80">		user.setTripDeals(providers);</span>
+<span class="fc" id="L81">		return providers;</span>
+
+		///// V0
+//		int cumulatativeRewardPoints = user.getUserRewards().stream().mapToInt(i -&gt; i.getRewardPoints()).sum();
+//		List&lt;Provider&gt; providers = tripPricer.getPrice(tripPricerApiKey, user.getUserId(),user.getUserPreferences().getNumberOfAdults(), 
+//				user.getUserPreferences().getNumberOfChildren(), user.getUserPreferences().getTripDuration(), cumulatativeRewardPoints);
+//		user.setTripDeals(providers);
+//		return providers;
+	}
+
+	@Override
+	 public String getProviderName(String apiKey, int adults) {
+		// on a une liste de name
+		// on tombe sur une valeur
+		// on assigne cette valeur Ã  un provider
+		// on retire cette valeur de la liste
+<span class="fc" id="L97">		int multiple = ThreadLocalRandom.current().nextInt(1, 10);</span>
+<span class="pc bpc" id="L98" title="5 of 10 branches missed.">        switch(multiple) {</span>
+        case 1:
+<span class="fc" id="L100">            return &quot;Holiday Travels&quot;;</span>
+        case 2:
+<span class="nc" id="L102">            return &quot;Enterprize Ventures Limited&quot;;</span>
+        case 3:
+<span class="fc" id="L104">            return &quot;Sunny Days&quot;;</span>
+        case 4:
+<span class="fc" id="L106">            return &quot;FlyAway Trips&quot;;</span>
+        case 5:
+<span class="nc" id="L108">            return &quot;United Partners Vacations&quot;;</span>
+        case 6:
+<span class="nc" id="L110">            return &quot;Dream Trips&quot;;</span>
+        case 7:
+<span class="nc" id="L112">            return &quot;Live Free&quot;;</span>
+        case 8:
+<span class="fc" id="L114">            return &quot;Dancing Waves Cruselines and Partners&quot;;</span>
+        case 9:
+<span class="fc" id="L116">            return &quot;AdventureCo&quot;;</span>
+        default:
+<span class="nc" id="L118">            return &quot;Cure-Your-Blues&quot;;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

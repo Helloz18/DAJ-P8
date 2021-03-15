@@ -1,12 +1,21 @@
 package tourGuide.controller;
 
+import java.util.Arrays;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.jsoniter.output.JsonStream;
 
@@ -63,11 +72,19 @@ public class AttractionController {
     @RequestMapping("/getNearbyAttractions") 
     public String getNearbyAttractions(@RequestParam String userName) 
     		throws JSONException, InterruptedException, ExecutionException {
+    	Locale.setDefault(Locale.US);
+        
     	User user = userService.getUser(userName);
     	return JsonStream.
     			serialize(attractionsService.getFiveNearAttractionsWithDistanceAndRewardsFromCurrentUserLocation(user));
     }
    
+    
+    @RequestMapping("/getTest")
+    public ResponseEntity<String> getTest() {
+   	
+    	return new RestTemplate().getForEntity("http://localhost:5000/test", String.class);
+    }
        
     
 }

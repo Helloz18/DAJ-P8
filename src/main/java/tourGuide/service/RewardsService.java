@@ -2,7 +2,16 @@ package tourGuide.service;
 
 import java.util.List;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+
+import com.jsoniter.output.JsonStream;
 
 import gpsUtil.GpsUtil;
 import gpsUtil.location.Attraction;
@@ -15,6 +24,8 @@ import tourGuide.user.UserReward;
 @Service
 public class RewardsService {
     private static final double STATUTE_MILES_PER_NAUTICAL_MILE = 1.15077945;
+
+    String URL = "http://localhost:5000";
 
 	// proximity in miles
     private int defaultProximityBuffer = 10;
@@ -42,14 +53,38 @@ public class RewardsService {
 	 */
 	public void calculateRewards(User user) {
 		List<VisitedLocation> userLocations = user.getVisitedLocations();
-		List<Attraction> attractions = gpsUtil.getAttractions();
-		
+		List<Attraction> attractions = gpsUtil.getAttractions();	
 
 		///V2 ok
 		for(int i=0; i < userLocations.size(); i++) {
 			for(Attraction attraction : attractions) {
 				if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
-					if(nearAttraction(userLocations.get(i), attraction)) {
+				
+					//V2 en utilisant nearAttraction
+					System.out.println("attraction "+attraction.longitude + " "+attraction.latitude);
+//					if(nearAttraction(userLocations.get(i), attraction)) {
+					//V4 en utilisant Get au lieu de POST
+//					Location attractionL = new Location(attraction.longitude, attraction.latitude);
+//					String attractionLocation = JsonStream.serialize(attractionL);
+//					String visitorLocation = JsonStream.serialize(userLocations.get(i).location);
+//					ResponseEntity<Boolean> reponse = new RestTemplate().getForEntity(URL+"/nearAttraction?visitorLocation={visitorLocation}&attractionLocation={attractionLocation}", Boolean.class, visitorLocation,attractionLocation);
+			//	System.out.println("test "+reponse.getBody());
+					//V3 en utilisant le service externe avec une autre méthode public
+					HttpHeaders headers = new HttpHeaders();
+					headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+					MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+				
+					map.add("userId", user.getUserId().toString());
+					System.out.println(user.getUserId().toString());
+					map.add("visitedDate", userLocations.get(i).timeVisited.toString());
+					System.out.println(userLocations.get(i).timeVisited.toString());
+					map.add("attraction", JsonStream.serialize(attraction));
+					System.out.println(JsonStream.serialize(attraction));
+					map.add("visitorLocation", JsonStream.serialize(userLocations.get(i).location));
+					HttpEntity<MultiValueMap<String, String>> requeteHttp = new HttpEntity<MultiValueMap<String, String>>(map, headers);
+					ResponseEntity<Boolean> reponse = new RestTemplate().postForEntity(URL+"/nearAttraction", requeteHttp , Boolean.class);
+					System.out.println("test "+reponse.getBody());
+					if(reponse.getBody()) {
 						user.addUserReward(new UserReward(userLocations.get(i), attraction, getRewardPoints(attraction, user)));
 					}
 				}

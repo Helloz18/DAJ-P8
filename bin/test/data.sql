@@ -1,8 +1,0 @@
-DROP TABLE IF EXISTS users;
-
-CREATE TABLE users (
-userId UUID AUTO_INCREMENT PRIMARY KEY,
-user_name VARCHAR(250) NOT NULL);
-
-INSERT INTO users (userId, user_name) VALUES
-(019b04a9-067a-4c76-8817-ee75088c3822, 'test');
