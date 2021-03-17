@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tourGuide.TripDealsControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-14T15:20:04" hostname="LAPTOP-O34I53V9" time="0.011">
+<testsuite name="tourGuide.TripDealsControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-17T21:50:22" hostname="LAPTOP-O34I53V9" time="0.024">
   <properties/>
-  <testcase name="getTripDealsShouldReturnOk" classname="tourGuide.TripDealsControllerTest" time="0.011"/>
-  <system-out><![CDATA[2021-03-14 16:20:03.916 warn 17452 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [tourGuide.TripDealsControllerTest], using SpringBootContextLoader
-2021-03-14 16:20:03.917 warn 17452 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [tourGuide.TripDealsControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-2021-03-14 16:20:03.917 warn 17452 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [tourGuide.TripDealsControllerTest]: TripDealsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2021-03-14 16:20:03.921 warn 17452 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration tourGuide.Application for test class tourGuide.TripDealsControllerTest
-2021-03-14 16:20:03.922 warn 17452 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
-2021-03-14 16:20:03.923 warn 17452 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@3ac16526, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@33c461a6, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@5da729f5, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@7eba2100, org.springframework.test.context.support.DirtiesContextTestExecutionListener@4fe383a4, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@5fba12af, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@3bb6602c, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@142bf47b, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@4786abf9, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@48a6e6cc]
+  <testcase name="getTripDealsShouldReturnOk" classname="tourGuide.TripDealsControllerTest" time="0.024"/>
+  <system-out><![CDATA[2021-03-17 22:50:20.563 warn 25144 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [tourGuide.TripDealsControllerTest], using SpringBootContextLoader
+2021-03-17 22:50:20.564 warn 25144 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [tourGuide.TripDealsControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2021-03-17 22:50:20.565 warn 25144 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [tourGuide.TripDealsControllerTest]: TripDealsControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2021-03-17 22:50:20.577 warn 25144 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration tourGuide.Application for test class tourGuide.TripDealsControllerTest
+2021-03-17 22:50:20.578 warn 25144 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2021-03-17 22:50:20.580 warn 25144 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@387e92b0, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@70f782ff, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@3a7ff911, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@42757f7d, org.springframework.test.context.support.DirtiesContextTestExecutionListener@ed28e91, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@42fe15ce, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@70ccbf1, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@6e6bc2fa, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@74576fa0, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@46354481]
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -17,7 +17,7 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::        (v2.1.6.RELEASE)
 
-2021-03-14 16:20:03.941 warn 17452 --- [    Test worker] ory$DuplicateJsonObjectContextCustomizer : 
+2021-03-17 22:50:20.627 warn 25144 --- [    Test worker] ory$DuplicateJsonObjectContextCustomizer : 
 
 Found multiple occurrences of org.json.JSONObject on the class path:
 
@@ -26,33 +26,33 @@ Found multiple occurrences of org.json.JSONObject on the class path:
 
 You may wish to exclude one of them to ensure predictable runtime behavior
 
-2021-03-14 16:20:03.942 warn 17452 --- [    Test worker] tourGuide.TripDealsControllerTest        : Starting TripDealsControllerTest on LAPTOP-O34I53V9 with PID 17452 (started by hfx28 in D:\DAJ - Projet 8\JavaPathENProject8-master\TourGuide)
-2021-03-14 16:20:03.942 warn 17452 --- [    Test worker] tourGuide.TripDealsControllerTest        : No active profile set, falling back to default profiles: default
-2021-03-14 16:20:04.339 warn 17452 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2021-03-14 16:20:04.467 warn 17452 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-03-14 16:20:04.467 warn 17452 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-03-14 16:20:04.473 warn 17452 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 6 ms
-2021-03-14 16:20:04.491 warn 17452 --- [    Test worker] tourGuide.TripDealsControllerTest        : Started TripDealsControllerTest in 0.567 seconds (JVM running for 33.037)
-FlyAway Trips
-554.99
-AdventureCo
-592.99
-Sunny Days
-245.99
-FlyAway Trips
-198.99
+2021-03-17 22:50:20.630 warn 25144 --- [    Test worker] tourGuide.TripDealsControllerTest        : Starting TripDealsControllerTest on LAPTOP-O34I53V9 with PID 25144 (started by hfx28 in D:\DAJ - Projet 8\JavaPathENProject8-master\TourGuide)
+2021-03-17 22:50:20.632 warn 25144 --- [    Test worker] tourGuide.TripDealsControllerTest        : No active profile set, falling back to default profiles: default
+2021-03-17 22:50:21.671 warn 25144 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-17 22:50:22.054 warn 25144 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-03-17 22:50:22.054 warn 25144 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-03-17 22:50:22.068 warn 25144 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 14 ms
+2021-03-17 22:50:22.112 warn 25144 --- [    Test worker] tourGuide.TripDealsControllerTest        : Started TripDealsControllerTest in 1.528 seconds (JVM running for 76.91)
+Live Free
+217.99
+Enterprize Ventures Limited
+159.99
+Holiday Travels
+402.99
+Dream Trips
+556.99
+Live Free
+351.99
+Enterprize Ventures Limited
+644.99
 Dancing Waves Cruselines and Partners
-645.99
-AdventureCo
-227.99
+601.99
 Sunny Days
-152.99
+482.99
 Sunny Days
-492.99
-Holiday Travels
-473.99
-Holiday Travels
-667.99
+189.99
+Sunny Days
+687.99
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

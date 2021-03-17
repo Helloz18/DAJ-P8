@@ -55,14 +55,15 @@ public class RewardsService {
 		List<VisitedLocation> userLocations = user.getVisitedLocations();
 		List<Attraction> attractions = gpsUtil.getAttractions();	
 
+		
 		///V2 ok
 		for(int i=0; i < userLocations.size(); i++) {
 			for(Attraction attraction : attractions) {
-				if(user.getUserRewards().stream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
+				if(user.getUserRewards().parallelStream().filter(r -> r.attraction.attractionName.equals(attraction.attractionName)).count() == 0) {
 				
 					//V2 en utilisant nearAttraction
-					System.out.println("attraction "+attraction.longitude + " "+attraction.latitude);
-//					if(nearAttraction(userLocations.get(i), attraction)) {
+					//System.out.println("attraction "+attraction.longitude + " "+attraction.latitude);
+					if(nearAttraction(userLocations.get(i), attraction)) {
 					//V4 en utilisant Get au lieu de POST
 //					Location attractionL = new Location(attraction.longitude, attraction.latitude);
 //					String attractionLocation = JsonStream.serialize(attractionL);
@@ -70,21 +71,18 @@ public class RewardsService {
 //					ResponseEntity<Boolean> reponse = new RestTemplate().getForEntity(URL+"/nearAttraction?visitorLocation={visitorLocation}&attractionLocation={attractionLocation}", Boolean.class, visitorLocation,attractionLocation);
 			//	System.out.println("test "+reponse.getBody());
 					//V3 en utilisant le service externe avec une autre méthode public
-					HttpHeaders headers = new HttpHeaders();
-					headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-					MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
-				
-					map.add("userId", user.getUserId().toString());
-					System.out.println(user.getUserId().toString());
-					map.add("visitedDate", userLocations.get(i).timeVisited.toString());
-					System.out.println(userLocations.get(i).timeVisited.toString());
-					map.add("attraction", JsonStream.serialize(attraction));
-					System.out.println(JsonStream.serialize(attraction));
-					map.add("visitorLocation", JsonStream.serialize(userLocations.get(i).location));
-					HttpEntity<MultiValueMap<String, String>> requeteHttp = new HttpEntity<MultiValueMap<String, String>>(map, headers);
-					ResponseEntity<Boolean> reponse = new RestTemplate().postForEntity(URL+"/nearAttraction", requeteHttp , Boolean.class);
-					System.out.println("test "+reponse.getBody());
-					if(reponse.getBody()) {
+//					HttpHeaders headers = new HttpHeaders();
+//					headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+//					MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+//				
+//					map.add("userId", user.getUserId().toString());
+//					map.add("visitedDate", userLocations.get(i).timeVisited.toString());
+//					map.add("attraction", JsonStream.serialize(attraction));
+//					map.add("visitorLocation", JsonStream.serialize(userLocations.get(i).location));
+//					map.add("proximitybuffer", JsonStream.serialize(proximityBuffer));
+//					HttpEntity<MultiValueMap<String, String>> requeteHttp = new HttpEntity<MultiValueMap<String, String>>(map, headers);
+//					ResponseEntity<Boolean> reponse = new RestTemplate().postForEntity(URL+"/nearAttraction", requeteHttp , Boolean.class);
+//					if(reponse.getBody()) {
 						user.addUserReward(new UserReward(userLocations.get(i), attraction, getRewardPoints(attraction, user)));
 					}
 				}
@@ -115,9 +113,9 @@ public class RewardsService {
 	 * @param location
 	 * @return
 	 */
-	public boolean isWithinAttractionProximity(Attraction attraction, Location location) {
-		return getDistance(attraction, location) > attractionProximityRange ? false : true;
-	}
+//	public boolean isWithinAttractionProximity(Attraction attraction, Location location) {
+//		return getDistance(attraction, location) > attractionProximityRange ? false : true;
+//	}
 	
 	/**
 	 * return true if the user's visitedLocation matches the attraction's location.
@@ -126,7 +124,12 @@ public class RewardsService {
 	 * @return
 	 */
 	private boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {
-		return getDistance(attraction, visitedLocation.location) > proximityBuffer ? false : true;
+		Location loc1 = new Location(attraction.longitude, attraction.latitude);
+		String location1 = JsonStream.serialize(loc1);
+		String location2 = JsonStream.serialize(visitedLocation.location);
+		ResponseEntity<Double> reponse = new RestTemplate().getForEntity(URL+"/distance?location1={location1}&location2={location2}", Double.class, location1,location2);
+		
+		return reponse.getBody() > proximityBuffer ? false : true;
 	}
 	
 	/**
@@ -139,25 +142,25 @@ public class RewardsService {
 		return rewardsCentral.getAttractionRewardPoints(attraction.attractionId, user.getUserId());
 	}
 	
-	/**
-	 * this method calculate the distance in miles between two locations.
-	 * @param loc1
-	 * @param loc2
-	 * @return
-	 */
-	public double getDistance(Location loc1, Location loc2) {
-        double lat1 = Math.toRadians(loc1.latitude);
-        double lon1 = Math.toRadians(loc1.longitude);
-        double lat2 = Math.toRadians(loc2.latitude);
-        double lon2 = Math.toRadians(loc2.longitude);
-
-        double angle = Math.acos(Math.sin(lat1) * Math.sin(lat2)
-                               + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon1 - lon2));
-
-        double nauticalMiles = 60 * Math.toDegrees(angle);
-        double statuteMiles = STATUTE_MILES_PER_NAUTICAL_MILE * nauticalMiles;
-        return statuteMiles;
-	}
+//	/**
+//	 * this method calculate the distance in miles between two locations.
+//	 * @param loc1
+//	 * @param loc2
+//	 * @return
+//	 */
+//	public double getDistance(Location loc1, Location loc2) {
+//        double lat1 = Math.toRadians(loc1.latitude);
+//        double lon1 = Math.toRadians(loc1.longitude);
+//        double lat2 = Math.toRadians(loc2.latitude);
+//        double lon2 = Math.toRadians(loc2.longitude);
+//
+//        double angle = Math.acos(Math.sin(lat1) * Math.sin(lat2)
+//                               + Math.cos(lat1) * Math.cos(lat2) * Math.cos(lon1 - lon2));
+//
+//        double nauticalMiles = 60 * Math.toDegrees(angle);
+//        double statuteMiles = STATUTE_MILES_PER_NAUTICAL_MILE * nauticalMiles;
+//        return statuteMiles;
+//	}
 	
 	public List<UserReward> getUserRewards(User user) {
 		return user.getUserRewards();

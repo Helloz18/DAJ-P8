@@ -37,19 +37,7 @@ import tourGuide.user.User;
 <span class="fc" id="L37">    	VisitedLocation visitedLocation = locationsService.getUserLocation(userService.getUser(userName));</span>
 <span class="fc" id="L38">		return JsonStream.serialize(visitedLocation.location);</span>
     }
-    
-    @RequestMapping(&quot;/getLocation2&quot;) 
-    public gpsUtil.location.Location getLocation2(@RequestParam String userName) {
-<span class="nc" id="L43">    	VisitedLocation visitedLocation = locationsService.getUserLocation(userService.getUser(userName));</span>
-<span class="nc" id="L44">    	System.out.println(visitedLocation.location);</span>
-<span class="nc" id="L45">		return visitedLocation.location;</span>
-    }
-    
-    @RequestMapping(&quot;/getLocation3&quot;)
-    public Location getLocation3(@RequestParam String userName) {
-<span class="nc" id="L50">    	return locationsService.getLocation(userService.getUser(userName));</span>
-    }
-    
+        
     /**
      * 
      * @return
@@ -66,10 +54,10 @@ import tourGuide.user.User;
     	//        &quot;019b04a9-067a-4c76-8817-ee75088c3822&quot;: {&quot;longitude&quot;:-48.188821,&quot;latitude&quot;:74.84371} 
     	//        ...
     	//     }
-<span class="fc" id="L69">		Locale.setDefault(Locale.US);</span>
-<span class="fc" id="L70">    	List&lt;User&gt; users = new ArrayList&lt;User&gt;();</span>
-<span class="fc" id="L71">    	users = userService.getAllUsers();  	</span>
-<span class="fc" id="L72">    	return JsonStream.serialize(locationsService.getAllUsersLocation(users));</span>
+<span class="fc" id="L57">		Locale.setDefault(Locale.US);</span>
+<span class="fc" id="L58">    	List&lt;User&gt; users = new ArrayList&lt;User&gt;();</span>
+<span class="fc" id="L59">    	users = userService.getAllUsers();  	</span>
+<span class="fc" id="L60">    	return JsonStream.serialize(locationsService.getAllUsersLocation(users));</span>
     }
     
 }

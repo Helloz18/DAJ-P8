@@ -78,13 +78,6 @@ import tourGuide.user.User;
 <span class="fc" id="L78">    	return JsonStream.</span>
 <span class="fc" id="L79">    			serialize(attractionsService.getFiveNearAttractionsWithDistanceAndRewardsFromCurrentUserLocation(user));</span>
     }
-   
-    
-    @RequestMapping(&quot;/getTest&quot;)
-    public ResponseEntity&lt;String&gt; getTest() {
-   	
-<span class="nc" id="L86">    	return new RestTemplate().getForEntity(&quot;http://localhost:5000/test&quot;, String.class);</span>
-    }
        
     
 }

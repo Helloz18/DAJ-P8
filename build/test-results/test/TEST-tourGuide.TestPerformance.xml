@@ -1,121 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tourGuide.TestPerformance" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-03-14T15:19:43" hostname="LAPTOP-O34I53V9" time="20.133">
+<testsuite name="tourGuide.TestPerformance" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-03-17T21:49:25" hostname="LAPTOP-O34I53V9" time="0.787">
   <properties/>
-  <testcase name="highVolumeGetFiveNearAttractions" classname="tourGuide.TestPerformance" time="11.94"/>
-  <testcase name="highVolumeTrackLocation" classname="tourGuide.TestPerformance" time="4.409"/>
-  <testcase name="highVolumeGetRewards" classname="tourGuide.TestPerformance" time="3.747"/>
-  <testcase name="highVolumeGetAllUsersLocation" classname="tourGuide.TestPerformance" time="0.007"/>
-  <system-out><![CDATA[2021-03-14 16:19:43.762 warn 17452 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
-2021-03-14 16:19:43.770 warn 17452 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
-highVolumeGetFive: Time Elapsed: 11 seconds.
-2021-03-14 16:19:55.718 warn 17452 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
-2021-03-14 16:19:55.723 warn 17452 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
-gpsUtil.location.VisitedLocation@4d6dfdfc
-gpsUtil.location.VisitedLocation@721ed444
-gpsUtil.location.VisitedLocation@5756c817
-gpsUtil.location.VisitedLocation@79497410
-gpsUtil.location.VisitedLocation@5b69e4d8
-gpsUtil.location.VisitedLocation@5fd1b705
-gpsUtil.location.VisitedLocation@3e26ca98
-gpsUtil.location.VisitedLocation@cfdd0b8
-gpsUtil.location.VisitedLocation@1826badb
-gpsUtil.location.VisitedLocation@4a1d5f45
-gpsUtil.location.VisitedLocation@42673e94
-gpsUtil.location.VisitedLocation@20fd4e70
-gpsUtil.location.VisitedLocation@da0d8d6
-gpsUtil.location.VisitedLocation@2d675950
-gpsUtil.location.VisitedLocation@560f41f6
-gpsUtil.location.VisitedLocation@1c4b0b89
-gpsUtil.location.VisitedLocation@17a616be
-gpsUtil.location.VisitedLocation@9c60c3
-gpsUtil.location.VisitedLocation@2cb081d7
-gpsUtil.location.VisitedLocation@6863c08b
-gpsUtil.location.VisitedLocation@4f5738df
-gpsUtil.location.VisitedLocation@2caed38e
-gpsUtil.location.VisitedLocation@43851f5
-gpsUtil.location.VisitedLocation@7229ae61
-gpsUtil.location.VisitedLocation@44ef13b
-gpsUtil.location.VisitedLocation@5e26709f
-gpsUtil.location.VisitedLocation@18572557
-gpsUtil.location.VisitedLocation@2732da9a
-gpsUtil.location.VisitedLocation@5406306e
-gpsUtil.location.VisitedLocation@394900f9
-gpsUtil.location.VisitedLocation@1895e71a
-gpsUtil.location.VisitedLocation@29c21898
-gpsUtil.location.VisitedLocation@4ca2d88e
-gpsUtil.location.VisitedLocation@3d9d472b
-gpsUtil.location.VisitedLocation@a07cab5
-gpsUtil.location.VisitedLocation@333805b5
-gpsUtil.location.VisitedLocation@6984ddf4
-gpsUtil.location.VisitedLocation@3e776bf0
-gpsUtil.location.VisitedLocation@a915ce9
-gpsUtil.location.VisitedLocation@79f7f5a3
-gpsUtil.location.VisitedLocation@36d3fc14
-gpsUtil.location.VisitedLocation@337e29d5
-gpsUtil.location.VisitedLocation@33084d47
-gpsUtil.location.VisitedLocation@7514fc68
-gpsUtil.location.VisitedLocation@5c0e9d82
-gpsUtil.location.VisitedLocation@1efc2757
-gpsUtil.location.VisitedLocation@6fef23ba
-gpsUtil.location.VisitedLocation@3dca7593
-gpsUtil.location.VisitedLocation@15001d25
-gpsUtil.location.VisitedLocation@6ab9464d
-gpsUtil.location.VisitedLocation@7cdd4a53
-gpsUtil.location.VisitedLocation@12d5deb6
-gpsUtil.location.VisitedLocation@72910fc
-gpsUtil.location.VisitedLocation@2702a57a
-gpsUtil.location.VisitedLocation@319bfc1b
-gpsUtil.location.VisitedLocation@d87b4f0
-gpsUtil.location.VisitedLocation@42e6eb4c
-gpsUtil.location.VisitedLocation@70fdaf1f
-gpsUtil.location.VisitedLocation@1e68ee3f
-gpsUtil.location.VisitedLocation@2e78f936
-gpsUtil.location.VisitedLocation@5b31cb3e
-gpsUtil.location.VisitedLocation@46a90210
-gpsUtil.location.VisitedLocation@1fe915ec
-gpsUtil.location.VisitedLocation@76b1fe6e
-gpsUtil.location.VisitedLocation@238ca3bd
-gpsUtil.location.VisitedLocation@2dbb9c5e
-gpsUtil.location.VisitedLocation@7a2aba70
-gpsUtil.location.VisitedLocation@39179d5
-gpsUtil.location.VisitedLocation@4546b351
-gpsUtil.location.VisitedLocation@346e9ecb
-gpsUtil.location.VisitedLocation@1bb84b0c
-gpsUtil.location.VisitedLocation@13efd67f
-gpsUtil.location.VisitedLocation@63c32368
-gpsUtil.location.VisitedLocation@239b711d
-gpsUtil.location.VisitedLocation@7a22ae49
-gpsUtil.location.VisitedLocation@1793c35c
-gpsUtil.location.VisitedLocation@6d317aa5
-gpsUtil.location.VisitedLocation@155afd87
-gpsUtil.location.VisitedLocation@7ae54983
-gpsUtil.location.VisitedLocation@73e5fca0
-gpsUtil.location.VisitedLocation@15e7442b
-gpsUtil.location.VisitedLocation@579325d5
-gpsUtil.location.VisitedLocation@7ead7f5
-gpsUtil.location.VisitedLocation@5bb63b54
-gpsUtil.location.VisitedLocation@74dffa15
-gpsUtil.location.VisitedLocation@3aacc4d6
-gpsUtil.location.VisitedLocation@6b28f909
-gpsUtil.location.VisitedLocation@12e03a3
-gpsUtil.location.VisitedLocation@aaa5ec1
-gpsUtil.location.VisitedLocation@56fcb136
-gpsUtil.location.VisitedLocation@7a30ea51
-gpsUtil.location.VisitedLocation@b72cdaf
-gpsUtil.location.VisitedLocation@53f6c656
-gpsUtil.location.VisitedLocation@6030a81f
-gpsUtil.location.VisitedLocation@1dafa42a
-gpsUtil.location.VisitedLocation@2d1d85
-gpsUtil.location.VisitedLocation@658cafa0
-gpsUtil.location.VisitedLocation@19835e
-gpsUtil.location.VisitedLocation@6077e983
-gpsUtil.location.VisitedLocation@8de113d
-highVolumeTrackLocation: Time Elapsed: 4 seconds.
-2021-03-14 16:20:00.134 warn 17452 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
-2021-03-14 16:20:00.145 warn 17452 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
-highVolumeGetRewards: Time Elapsed: 3 seconds.
-2021-03-14 16:20:03.896 warn 17452 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
-2021-03-14 16:20:03.901 warn 17452 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
+  <testcase name="highVolumeGetFiveNearAttractions" classname="tourGuide.TestPerformance" time="0.042"/>
+  <testcase name="highVolumeTrackLocation" classname="tourGuide.TestPerformance" time="0.1"/>
+  <testcase name="highVolumeGetRewards" classname="tourGuide.TestPerformance" time="0.225"/>
+  <testcase name="highVolumeGetAllUsersLocation" classname="tourGuide.TestPerformance" time="0.058"/>
+  <system-out><![CDATA[2021-03-17 22:49:25.207 warn 25144 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
+2021-03-17 22:49:25.220 warn 25144 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
+highVolumeGetFive: Time Elapsed: 0 seconds.
+2021-03-17 22:49:25.279 warn 25144 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
+2021-03-17 22:49:25.292 warn 25144 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
+highVolumeTrackLocation: Time Elapsed: 0 seconds.
+2021-03-17 22:49:25.544 warn 25144 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
+2021-03-17 22:49:25.558 warn 25144 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
+highVolumeGetRewards: Time Elapsed: 0 seconds.
+2021-03-17 22:49:25.918 warn 25144 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
+2021-03-17 22:49:25.960 warn 25144 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
 highVolumeGetAllUsers: Time Elapsed: 0 seconds.
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>

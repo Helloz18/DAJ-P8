@@ -27,12 +27,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jsoniter.output.JsonStream;
 
 import gpsUtil.GpsUtil;
 import gpsUtil.location.Attraction;
+import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import rewardCentral.RewardCentral;
 import tourGuide.service.AttractionsService;
@@ -160,9 +163,20 @@ public class AttractionsServiceTest {
 			List<Attraction> attractions = gpsUtil.getAttractions();
 			Map<Attraction, Double> attractionDistance = new HashMap<Attraction, Double>();
 			
-			//////v2 - parallelStream
+			//////v3 - service externe
 			attractions.parallelStream().forEach((attraction) -> {
-				attractionDistance.put(attraction, rewardsService.getDistance(attraction, visitedLocation.location));
+				Location loc1 = new Location(attraction.longitude, attraction.latitude);
+				String location1 = JsonStream.serialize(loc1);
+				String location2 = JsonStream.serialize(visitedLocation.location);
+				ResponseEntity<Double> reponse = new RestTemplate()
+						.getForEntity(
+						"http://localhost:5000"+"/distance?location1={location1}&location2={location2}", 
+						Double.class, 
+						location1,location2);
+				attractionDistance.put(attraction, reponse.getBody());			
+			
+			//////v2 - parallelStream
+			//	attractionDistance.put(attraction, rewardsService.getDistance(attraction, visitedLocation.location));
 			});		
 				
 			//////v1 - boucle for

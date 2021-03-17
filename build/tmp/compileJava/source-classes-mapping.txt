@@ -1,25 +1,21 @@
 tourGuide/user/UserPreferences.java
  tourGuide.user.UserPreferences
-tourGuide/controller/MainController.java
- tourGuide.controller.MainController
+tourGuide/user/User.java
+ tourGuide.user.User
 tourGuide/service/TripPricerService.java
  tourGuide.service.TripPricerService
 tourGuide/Application.java
  tourGuide.Application
 tourGuide/user/UserReward.java
  tourGuide.user.UserReward
-tourGuide/controller/package-info.java
- tourGuide.controller.package-info
-tourGuide/user/User.java
- tourGuide.user.User
-tourGuide/service/LocationsService.java
- tourGuide.service.LocationsService
-tourGuide/user/Location.java
- tourGuide.user.Location
+tourGuide/helper/InternalTestHelper.java
+ tourGuide.helper.InternalTestHelper
+tourGuide/controller/MainController.java
+ tourGuide.controller.MainController
 tourGuide/service/RewardsService.java
  tourGuide.service.RewardsService
-tourGuide/TourGuideModule.java
- tourGuide.TourGuideModule
+tourGuide/service/AttractionsService.java
+ tourGuide.service.AttractionsService
 tourGuide/service/UserService.java
  tourGuide.service.UserService
 tourGuide/controller/LocationController.java
@@ -30,10 +26,10 @@ tourGuide/controller/TripDealsController.java
  tourGuide.controller.TripDealsController
 tourGuide/tracker/Tracker.java
  tourGuide.tracker.Tracker
-tourGuide/service/AttractionsService.java
- tourGuide.service.AttractionsService
-tourGuide/helper/InternalTestHelper.java
- tourGuide.helper.InternalTestHelper
+tourGuide/TourGuideModule.java
+ tourGuide.TourGuideModule
+tourGuide/service/LocationsService.java
+ tourGuide.service.LocationsService
 tourGuide/controller/AttractionController.java
  tourGuide.controller.AttractionController
 tourGuide/service/TestService.java

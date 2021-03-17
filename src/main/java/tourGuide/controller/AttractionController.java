@@ -78,13 +78,6 @@ public class AttractionController {
     	return JsonStream.
     			serialize(attractionsService.getFiveNearAttractionsWithDistanceAndRewardsFromCurrentUserLocation(user));
     }
-   
-    
-    @RequestMapping("/getTest")
-    public ResponseEntity<String> getTest() {
-   	
-    	return new RestTemplate().getForEntity("http://localhost:5000/test", String.class);
-    }
        
     
 }

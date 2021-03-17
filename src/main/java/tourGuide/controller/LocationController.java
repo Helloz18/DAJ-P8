@@ -37,19 +37,7 @@ public class LocationController {
     	VisitedLocation visitedLocation = locationsService.getUserLocation(userService.getUser(userName));
 		return JsonStream.serialize(visitedLocation.location);
     }
-    
-    @RequestMapping("/getLocation2") 
-    public gpsUtil.location.Location getLocation2(@RequestParam String userName) {
-    	VisitedLocation visitedLocation = locationsService.getUserLocation(userService.getUser(userName));
-    	System.out.println(visitedLocation.location);
-		return visitedLocation.location;
-    }
-    
-    @RequestMapping("/getLocation3")
-    public Location getLocation3(@RequestParam String userName) {
-    	return locationsService.getLocation(userService.getUser(userName));
-    }
-    
+        
     /**
      * 
      * @return

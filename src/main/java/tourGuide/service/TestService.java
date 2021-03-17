@@ -93,7 +93,7 @@ public class TestService {
 			User user = new User(UUID.randomUUID(), userName, phone, email);
 			generateUserLocationHistory(user);
 			//ajout de la méthode pour les rewards
-			generateUserRewards(user);
+			//generateUserRewards(user);
 			
 			internalUserMap.put(userName, user);
 		});
@@ -107,18 +107,18 @@ public class TestService {
 		});
 	}
 	
-	/**
-	 * méthode ajouter pour pouvoir tester /getRewards
-	 * @param user
-	 */
-	private void generateUserRewards(User user) {
-		IntStream.range(0, 1).forEach(i-> {
-			user.addUserReward(new UserReward(
-					new VisitedLocation(user.getUserId(), new Location(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()),
-					new Attraction("nameOfAttraction", "cityOfAttraction", "stateOfAttraction", generateRandomLatitude(), generateRandomLongitude()),
-					(int) (Math.random() * ( 1000 - 100 ))));
-		});
-	}
+//	/**
+//	 * méthode ajouter pour pouvoir tester /getRewards
+//	 * @param user
+//	 */
+//	private void generateUserRewards(User user) {
+//		IntStream.range(0, 1).forEach(i-> {
+//			user.addUserReward(new UserReward(
+//					new VisitedLocation(user.getUserId(), new Location(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()),
+//					new Attraction("nameOfAttraction", "cityOfAttraction", "stateOfAttraction", generateRandomLatitude(), generateRandomLongitude()),
+//					(int) (Math.random() * ( 1000 - 100 ))));
+//		});
+//	}
 	
 	private double generateRandomLongitude() {
 		double leftLimit = -180;

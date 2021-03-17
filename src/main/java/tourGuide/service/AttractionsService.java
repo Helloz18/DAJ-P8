@@ -56,7 +56,10 @@ public class AttractionsService {
 		attractions.parallelStream().forEach((attraction) -> {
 			//V1 sans service externe
 			//attractionDistance.put(attraction, rewardsService.getDistance(attraction, visitedLocation.location));
+			
+			
 			//V2 avec service externe et requête get
+			
 			Location loc1 = new Location(attraction.longitude, attraction.latitude);
 			String location1 = JsonStream.serialize(loc1);
 			String location2 = JsonStream.serialize(visitedLocation.location);
