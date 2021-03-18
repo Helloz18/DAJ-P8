@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tourGuide.MainControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-17T21:49:23" hostname="LAPTOP-O34I53V9" time="0.019">
+<testsuite name="tourGuide.MainControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-17T22:33:12" hostname="LAPTOP-O34I53V9" time="0.015">
   <properties/>
-  <testcase name="getMainPageShouldReturnOk" classname="tourGuide.MainControllerTest" time="0.019"/>
-  <system-out><![CDATA[2021-03-17 22:49:21.887 warn 25144 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [tourGuide.MainControllerTest], using SpringBootContextLoader
-2021-03-17 22:49:21.890 warn 25144 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [tourGuide.MainControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-2021-03-17 22:49:21.890 warn 25144 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [tourGuide.MainControllerTest]: MainControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2021-03-17 22:49:21.899 warn 25144 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration tourGuide.Application for test class tourGuide.MainControllerTest
-2021-03-17 22:49:21.900 warn 25144 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
-2021-03-17 22:49:21.903 warn 25144 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@786a156c, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@40b1cceb, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@41b5684b, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@6911cb33, org.springframework.test.context.support.DirtiesContextTestExecutionListener@41787208, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@fe02858, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@657dfedf, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@2d2f910, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@382370, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@e1469c7]
+  <testcase name="getMainPageShouldReturnOk" classname="tourGuide.MainControllerTest" time="0.015"/>
+  <system-out><![CDATA[2021-03-17 23:33:11.273 warn 2512 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [tourGuide.MainControllerTest], using SpringBootContextLoader
+2021-03-17 23:33:11.275 warn 2512 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [tourGuide.MainControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2021-03-17 23:33:11.275 warn 2512 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [tourGuide.MainControllerTest]: MainControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2021-03-17 23:33:11.284 warn 2512 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration tourGuide.Application for test class tourGuide.MainControllerTest
+2021-03-17 23:33:11.285 warn 2512 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2021-03-17 23:33:11.287 warn 2512 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@3d8d0d7b, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@7f7ac6f4, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@3da2dcfe, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@5e8568bf, org.springframework.test.context.support.DirtiesContextTestExecutionListener@bb640c1, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@22d26a25, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@93c07ad, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@7c0946a5, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@4500b1ad, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@7432686a]
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -17,7 +17,7 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::        (v2.1.6.RELEASE)
 
-2021-03-17 22:49:21.962 warn 25144 --- [    Test worker] ory$DuplicateJsonObjectContextCustomizer : 
+2021-03-17 23:33:11.328 warn 2512 --- [    Test worker] ory$DuplicateJsonObjectContextCustomizer : 
 
 Found multiple occurrences of org.json.JSONObject on the class path:
 
@@ -26,13 +26,13 @@ Found multiple occurrences of org.json.JSONObject on the class path:
 
 You may wish to exclude one of them to ensure predictable runtime behavior
 
-2021-03-17 22:49:21.964 warn 25144 --- [    Test worker] tourGuide.MainControllerTest             : Starting MainControllerTest on LAPTOP-O34I53V9 with PID 25144 (started by hfx28 in D:\DAJ - Projet 8\JavaPathENProject8-master\TourGuide)
-2021-03-17 22:49:21.966 warn 25144 --- [    Test worker] tourGuide.MainControllerTest             : No active profile set, falling back to default profiles: default
-2021-03-17 22:49:22.706 warn 25144 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2021-03-17 22:49:22.970 warn 25144 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-03-17 22:49:22.971 warn 25144 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-03-17 22:49:22.993 warn 25144 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 22 ms
-2021-03-17 22:49:23.055 warn 25144 --- [    Test worker] tourGuide.MainControllerTest             : Started MainControllerTest in 1.148 seconds (JVM running for 17.854)
+2021-03-17 23:33:11.330 warn 2512 --- [    Test worker] tourGuide.MainControllerTest             : Starting MainControllerTest on LAPTOP-O34I53V9 with PID 2512 (started by hfx28 in D:\DAJ - Projet 8\JavaPathENProject8-master\TourGuide)
+2021-03-17 23:33:11.335 warn 2512 --- [    Test worker] tourGuide.MainControllerTest             : No active profile set, falling back to default profiles: default
+2021-03-17 23:33:12.577 warn 2512 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-17 23:33:12.806 warn 2512 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-03-17 23:33:12.806 warn 2512 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-03-17 23:33:12.819 warn 2512 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 11 ms
+2021-03-17 23:33:12.856 warn 2512 --- [    Test worker] tourGuide.MainControllerTest             : Started MainControllerTest in 1.563 seconds (JVM running for 33.299)
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

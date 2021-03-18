@@ -9,26 +9,21 @@ import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
+
 
 import gpsUtil.GpsUtil;
 import gpsUtil.location.Attraction;
+import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import rewardCentral.RewardCentral;
+import tourGuide.model.User;
+import tourGuide.model.UserReward;
 import tourGuide.service.LocationsService;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TestService;
-import tourGuide.user.User;
-import tourGuide.user.UserReward;
 
 public class TestRewardsService {
 	
-	//déplacement des déclarations, et suppression de InternalTestHelper
 	
 	GpsUtil gpsUtil = new GpsUtil();
 	RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
@@ -41,47 +36,40 @@ public class TestRewardsService {
 
 	}
 	
-//	@Test
-//	public void userGetRewards() {	
-//		rewardsService.setProximityBuffer(Integer.MAX_VALUE);
-//		
-//		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
-//	//	Attraction attraction = gpsUtil.getAttractions().get(0);
-//	//	user.addToVisitedLocations(new VisitedLocation(user.getUserId(), attraction, new Date()));
-//	//	locationsService.trackUserLocation(user); // appelle calculate rewards
-//		List<UserReward> userRewards = user.getUserRewards();
-//		System.out.println(userRewards.size());
-//		testService.tracker.stopTracking();
-//		assertTrue(userRewards.size() > 0);
-//	}
+	@Test
+	public void userGetRewards() {	
+		rewardsService.setProximityBuffer(Integer.MAX_VALUE);
+		
+		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
+		Attraction attraction = gpsUtil.getAttractions().get(0);
+		user.addToVisitedLocations(new VisitedLocation(user.getUserId(), attraction, new Date()));
+		UserReward userReward = new UserReward(
+				new VisitedLocation(user.getUserId(), new Location(1.2, 2.3), null),
+				new Attraction("nameOfAttraction", "cityOfAttraction", "stateOfAttraction",1.2, 2.3),
+					(int) (Math.random() * ( 1000 - 100 )));
+		user.addUserReward(userReward);
+		List<UserReward> userRewards = rewardsService.getUserRewards(user);
+		testService.tracker.stopTracking();
+		assertTrue(userRewards.size() > 0);
+	}
 	
-//	@Test
-//	public void isWithinAttractionProximity() {
-//		Attraction attraction = gpsUtil.getAttractions().get(0);
-//		assertTrue(rewardsService.isWithinAttractionProximity(attraction, attraction));
-//	}
+	@Test
+	public void isWithinAttractionProximity() {
+		Attraction attraction = gpsUtil.getAttractions().get(0);
+		assertTrue(rewardsService.isWithinAttractionProximity(attraction, attraction));
+	}
 	
 	
 	//changement de nom : test d'originie nearAllAttractions, changé en calculateRewards
-	//@Ignore // Needs fixed - can throw ConcurrentModificationException
 	// modification du service, à la place du forEach, une boucle for seulement
 	// méthode très longue
 	@Test
 	public void testCalculateRewards() {
 		rewardsService.setProximityBuffer(Integer.MAX_VALUE);
-		// V2 - paramétrer un utilisateur
-		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
-		Attraction attraction = gpsUtil.getAttractions().get(0);
-		user.addToVisitedLocations(new VisitedLocation(user.getUserId(), attraction, new Date()));
-		rewardsService.calculateRewards(user);
-		List<UserReward> userRewards = rewardsService.getUserRewards(user);
-		testService.tracker.stopTracking();
 
-		// V1	
-//		rewardsService.calculateRewards(tourGuideService.getAllUsers().get(0));
-//		List<UserReward> userRewards = tourGuideService.getUserRewards(tourGuideService.getAllUsers().get(0));
-//		tourGuideService.tracker.stopTracking();
-		System.out.println(userRewards.size());
+		rewardsService.calculateRewards(testService.getAllUsers().get(0));
+		List<UserReward> userRewards = rewardsService.getUserRewards(testService.getAllUsers().get(0));
+		testService.tracker.stopTracking();
 		assertTrue(userRewards.size() == 1);
 	}
 	

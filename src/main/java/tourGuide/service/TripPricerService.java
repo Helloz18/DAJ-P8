@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.javamoney.moneta.Money;
 import org.springframework.beans.factory.annotation.Value;
 
-import tourGuide.user.User;
+import tourGuide.model.User;
 import tripPricer.Provider;
 import tripPricer.TripPricer;
 
@@ -19,7 +19,17 @@ public class TripPricerService extends TripPricer {
 	
 	TripPricer tripPricer = new TripPricer();
 
-	
+	/**
+	 * modification de la méthode getPrice pour qu'elle prenne en compte les préférences utilisateurs
+	 * @param apiKey
+	 * @param adults
+	 * @param children
+	 * @param nightsStay
+	 * @param rewardsPoints
+	 * @param lowerPrice
+	 * @param higherPricer
+	 * @return
+	 */
 	public List<Provider> getPrice(
 			String apiKey, int adults, int children, int nightsStay, int rewardsPoints, 
 			Money lowerPrice, Money higherPricer){
@@ -57,21 +67,10 @@ public class TripPricerService extends TripPricer {
 	}
 	
 	/**
-	 * cumulativeRewardPoints : quel que soit le chiffre, la liste affiche toujours 5 attractions
-	 * 1 on récupère les points gagnés par l'utilisateur
-	 * 2 en fonction de préférences de l'utilisateurs (nb d'adultes, nb d'enfants, durée du voyage) et des points cummulés, 
-	 * on récupère une liste d'attractions potentielles.
-	 * PB autres préférences ? : le montant maximum des préférences utilisateur n'est pas pris en compte
-	 * 	Est-ce que le ticket quantity doit être pris en compte aussi ? : cette option n'est pas applicable, il faudrait
-	 * un ticket quantity pour adultes et pour enfants, et là c'est global, ne fonctionne pas. n'est pas utilisé.
-	 *  Prendre aussi en compte le prix minimal (si des gens veulent éviter les attractions gratuites (?) )
-	 * 	il faudrait ajouter maintenant des conditions supplémentaires par rapport à la liste des providers reçus
 	 * @param user
 	 * @return
 	 */
 	public List<Provider> getTripDeals(User user) {
-		
-		///// V1
 		TripPricerService trip = new TripPricerService();
 		int cumulatativeRewardPoints = user.getUserRewards().stream().mapToInt(i -> i.getRewardPoints()).sum();
 		List<Provider> providers = trip.getPrice(tripPricerApiKey,user.getUserPreferences().getNumberOfAdults(), 
@@ -80,42 +79,6 @@ public class TripPricerService extends TripPricer {
 		user.setTripDeals(providers);
 		return providers;
 
-		///// V0
-//		int cumulatativeRewardPoints = user.getUserRewards().stream().mapToInt(i -> i.getRewardPoints()).sum();
-//		List<Provider> providers = tripPricer.getPrice(tripPricerApiKey, user.getUserId(),user.getUserPreferences().getNumberOfAdults(), 
-//				user.getUserPreferences().getNumberOfChildren(), user.getUserPreferences().getTripDuration(), cumulatativeRewardPoints);
-//		user.setTripDeals(providers);
-//		return providers;
 	}
 
-	@Override
-	 public String getProviderName(String apiKey, int adults) {
-		// on a une liste de name
-		// on tombe sur une valeur
-		// on assigne cette valeur à un provider
-		// on retire cette valeur de la liste
-		int multiple = ThreadLocalRandom.current().nextInt(1, 10);
-        switch(multiple) {
-        case 1:
-            return "Holiday Travels";
-        case 2:
-            return "Enterprize Ventures Limited";
-        case 3:
-            return "Sunny Days";
-        case 4:
-            return "FlyAway Trips";
-        case 5:
-            return "United Partners Vacations";
-        case 6:
-            return "Dream Trips";
-        case 7:
-            return "Live Free";
-        case 8:
-            return "Dancing Waves Cruselines and Partners";
-        case 9:
-            return "AdventureCo";
-        default:
-            return "Cure-Your-Blues";
-        }
-    }
-}
+	}

@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.022s</div>
+<div class="counter">0.021s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,12 +79,12 @@
 </thead>
 <tr>
 <td class="success">getAllUsersLocationsShouldReturnOk</td>
-<td class="success">0.012s</td>
+<td class="success">0.009s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">getGetLocationShouldReturnOk</td>
-<td class="success">0.010s</td>
+<td class="success">0.012s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -92,12 +92,12 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2021-03-17 22:49:20.539 warn 25144 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [tourGuide.LocationControllerTest], using SpringBootContextLoader
-2021-03-17 22:49:20.541 warn 25144 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [tourGuide.LocationControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-2021-03-17 22:49:20.541 warn 25144 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [tourGuide.LocationControllerTest]: LocationControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2021-03-17 22:49:20.549 warn 25144 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration tourGuide.Application for test class tourGuide.LocationControllerTest
-2021-03-17 22:49:20.550 warn 25144 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
-2021-03-17 22:49:20.553 warn 25144 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@5cbfdd1d, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@d663c0a, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@113b16fb, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@1e017f73, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3c741e9b, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@4ef373, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@490ba14f, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@5ce4b5fa, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@40f8f83b, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@37da5e3c]
+<pre>2021-03-17 23:33:10.037 warn 2512 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [tourGuide.LocationControllerTest], using SpringBootContextLoader
+2021-03-17 23:33:10.039 warn 2512 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [tourGuide.LocationControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2021-03-17 23:33:10.039 warn 2512 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [tourGuide.LocationControllerTest]: LocationControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2021-03-17 23:33:10.054 warn 2512 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration tourGuide.Application for test class tourGuide.LocationControllerTest
+2021-03-17 23:33:10.056 warn 2512 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
+2021-03-17 23:33:10.059 warn 2512 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@3fec0526, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@60947929, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@4d6cba19, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@3947d62c, org.springframework.test.context.support.DirtiesContextTestExecutionListener@66dd3117, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@25c341d4, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@d579b07, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@a26ca37, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@57c17ed, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@3a0e3b77]
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -107,7 +107,7 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::        (v2.1.6.RELEASE)
 
-2021-03-17 22:49:20.601 warn 25144 --- [    Test worker] ory$DuplicateJsonObjectContextCustomizer : 
+2021-03-17 23:33:10.130 warn 2512 --- [    Test worker] ory$DuplicateJsonObjectContextCustomizer : 
 
 Found multiple occurrences of org.json.JSONObject on the class path:
 
@@ -116,13 +116,13 @@ Found multiple occurrences of org.json.JSONObject on the class path:
 
 You may wish to exclude one of them to ensure predictable runtime behavior
 
-2021-03-17 22:49:20.604 warn 25144 --- [    Test worker] tourGuide.LocationControllerTest         : Starting LocationControllerTest on LAPTOP-O34I53V9 with PID 25144 (started by hfx28 in D:\DAJ - Projet 8\JavaPathENProject8-master\TourGuide)
-2021-03-17 22:49:20.606 warn 25144 --- [    Test worker] tourGuide.LocationControllerTest         : No active profile set, falling back to default profiles: default
-2021-03-17 22:49:21.485 warn 25144 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2021-03-17 22:49:21.786 warn 25144 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-03-17 22:49:21.786 warn 25144 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-03-17 22:49:21.802 warn 25144 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 16 ms
-2021-03-17 22:49:21.846 warn 25144 --- [    Test worker] tourGuide.LocationControllerTest         : Started LocationControllerTest in 1.288 seconds (JVM running for 16.644)
+2021-03-17 23:33:10.134 warn 2512 --- [    Test worker] tourGuide.LocationControllerTest         : Starting LocationControllerTest on LAPTOP-O34I53V9 with PID 2512 (started by hfx28 in D:\DAJ - Projet 8\JavaPathENProject8-master\TourGuide)
+2021-03-17 23:33:10.138 warn 2512 --- [    Test worker] tourGuide.LocationControllerTest         : No active profile set, falling back to default profiles: default
+2021-03-17 23:33:10.923 warn 2512 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-17 23:33:11.184 warn 2512 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-03-17 23:33:11.184 warn 2512 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-03-17 23:33:11.198 warn 2512 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 13 ms
+2021-03-17 23:33:11.239 warn 2512 --- [    Test worker] tourGuide.LocationControllerTest         : Started LocationControllerTest in 1.172 seconds (JVM running for 31.684)
 </pre>
 </span>
 </div>
@@ -134,7 +134,7 @@ You may wish to exclude one of them to ensure predictable runtime behavior
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 6.7.1</a> at 17 mars 2021 22:50:22</p>
+<a href="http://www.gradle.org">Gradle 6.7.1</a> at 17 mars 2021 23:33:20</p>
 </div>
 </div>
 </body>

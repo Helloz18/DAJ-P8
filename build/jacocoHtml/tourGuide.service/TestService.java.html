@@ -93,7 +93,7 @@ public class TestService {
 <span class="fc" id="L93">			User user = new User(UUID.randomUUID(), userName, phone, email);</span>
 <span class="fc" id="L94">			generateUserLocationHistory(user);</span>
 			//ajout de la mÃ©thode pour les rewards
-<span class="fc" id="L96">			generateUserRewards(user);</span>
+			//generateUserRewards(user);
 			
 <span class="fc" id="L98">			internalUserMap.put(userName, user);</span>
 <span class="fc" id="L99">		});</span>
@@ -107,18 +107,18 @@ public class TestService {
 <span class="fc" id="L107">		});</span>
 <span class="fc" id="L108">	}</span>
 	
-	/**
-	 * mÃ©thode ajouter pour pouvoir tester /getRewards
-	 * @param user
-	 */
-	private void generateUserRewards(User user) {
-<span class="fc" id="L115">		IntStream.range(0, 1).forEach(i-&gt; {</span>
-<span class="fc" id="L116">			user.addUserReward(new UserReward(</span>
-<span class="fc" id="L117">					new VisitedLocation(user.getUserId(), new Location(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()),</span>
-<span class="fc" id="L118">					new Attraction(&quot;nameOfAttraction&quot;, &quot;cityOfAttraction&quot;, &quot;stateOfAttraction&quot;, generateRandomLatitude(), generateRandomLongitude()),</span>
-<span class="fc" id="L119">					(int) (Math.random() * ( 1000 - 100 ))));</span>
-<span class="fc" id="L120">		});</span>
-<span class="fc" id="L121">	}</span>
+//	/**
+//	 * mÃ©thode ajouter pour pouvoir tester /getRewards
+//	 * @param user
+//	 */
+//	private void generateUserRewards(User user) {
+//		IntStream.range(0, 1).forEach(i-&gt; {
+//			user.addUserReward(new UserReward(
+//					new VisitedLocation(user.getUserId(), new Location(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()),
+//					new Attraction(&quot;nameOfAttraction&quot;, &quot;cityOfAttraction&quot;, &quot;stateOfAttraction&quot;, generateRandomLatitude(), generateRandomLongitude()),
+//					(int) (Math.random() * ( 1000 - 100 ))));
+//		});
+//	}
 	
 	private double generateRandomLongitude() {
 <span class="fc" id="L124">		double leftLimit = -180;</span>

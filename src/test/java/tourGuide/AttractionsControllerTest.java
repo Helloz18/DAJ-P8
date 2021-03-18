@@ -17,9 +17,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import tourGuide.controller.AttractionController;
+import tourGuide.model.User;
 import tourGuide.service.AttractionsService;
 import tourGuide.service.UserService;
-import tourGuide.user.User;
 
 
 @RunWith(SpringRunner.class)

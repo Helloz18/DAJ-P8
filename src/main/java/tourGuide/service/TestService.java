@@ -23,9 +23,9 @@ import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
+import tourGuide.model.User;
+import tourGuide.model.UserReward;
 import tourGuide.tracker.Tracker;
-import tourGuide.user.User;
-import tourGuide.user.UserReward;
 
 @Service
 public class TestService {
@@ -92,8 +92,6 @@ public class TestService {
 			String email = userName + "@tourGuide.com";
 			User user = new User(UUID.randomUUID(), userName, phone, email);
 			generateUserLocationHistory(user);
-			//ajout de la méthode pour les rewards
-			//generateUserRewards(user);
 			
 			internalUserMap.put(userName, user);
 		});
@@ -108,7 +106,7 @@ public class TestService {
 	}
 	
 //	/**
-//	 * méthode ajouter pour pouvoir tester /getRewards
+//	 * méthode ajoutée pour pouvoir tester /getRewards
 //	 * @param user
 //	 */
 //	private void generateUserRewards(User user) {

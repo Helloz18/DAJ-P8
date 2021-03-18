@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import gpsUtil.GpsUtil;
 import rewardCentral.RewardCentral;
-import tourGuide.user.User;
+import tourGuide.model.User;
 
 @Service
 public class UserService {

@@ -12,7 +12,7 @@ import gpsUtil.GpsUtil;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import rewardCentral.RewardCentral;
-import tourGuide.user.User;
+import tourGuide.model.User;
 
 @Service
 public class LocationsService {
@@ -66,15 +66,6 @@ public class LocationsService {
 //		for(User user : users) {
 //		jsonAllUsersLocations.put(user.getUserId().toString(), JsonStream.serialize(trackUserLocation(user).location));
 //		}
-		
-		/////v1
-//		users.parallelStream().forEach((user) -> {
-//			try {
-//				jsonAllUsersLocations.put(user.getUserId().toString(), JsonStream.serialize(trackUserLocation(user).location));
-//			} catch (JSONException e) {
-//				e.printStackTrace();
-//			}
-//		});
 		
 		return jsonAllUsersLocations;
 	}

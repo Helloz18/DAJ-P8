@@ -14,6 +14,8 @@ tourGuide/controller/MainController.java
  tourGuide.controller.MainController
 tourGuide/service/RewardsService.java
  tourGuide.service.RewardsService
+tourGuide/TourGuideModule.java
+ tourGuide.TourGuideModule
 tourGuide/service/AttractionsService.java
  tourGuide.service.AttractionsService
 tourGuide/service/UserService.java
@@ -26,8 +28,6 @@ tourGuide/controller/TripDealsController.java
  tourGuide.controller.TripDealsController
 tourGuide/tracker/Tracker.java
  tourGuide.tracker.Tracker
-tourGuide/TourGuideModule.java
- tourGuide.TourGuideModule
 tourGuide/service/LocationsService.java
  tourGuide.service.LocationsService
 tourGuide/controller/AttractionController.java

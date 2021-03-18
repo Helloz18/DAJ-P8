@@ -104,37 +104,37 @@ import tourGuide.user.User;
 	 * @throws InterruptedException 
 	 */
 	public JSONObject getFiveNearAttractionsWithDistanceAndRewardsFromCurrentUserLocation(User user) throws JSONException, InterruptedException, ExecutionException {
-<span class="fc" id="L107">		VisitedLocation visitedLocation = locationsService.trackUserLocation(user);</span>
-<span class="fc" id="L108">		Map&lt;Attraction, Double&gt; mapSorted = getAttractionsByDistance(visitedLocation);</span>
-<span class="fc" id="L109">		RewardCentral rewardCentral = new RewardCentral();</span>
-<span class="fc" id="L110">		JSONArray attractionsWanted = new JSONArray();</span>
+<span class="nc" id="L107">		VisitedLocation visitedLocation = locationsService.trackUserLocation(user);</span>
+<span class="nc" id="L108">		Map&lt;Attraction, Double&gt; mapSorted = getAttractionsByDistance(visitedLocation);</span>
+<span class="nc" id="L109">		RewardCentral rewardCentral = new RewardCentral();</span>
+<span class="nc" id="L110">		JSONArray attractionsWanted = new JSONArray();</span>
 		
 		
-<span class="fc" id="L113">		Iterator&lt;Entry&lt;Attraction, Double&gt;&gt; iterator = mapSorted.entrySet().iterator();</span>
-<span class="fc" id="L114">		int j =0;</span>
-<span class="pc bpc" id="L115" title="1 of 4 branches missed.">		while(iterator.hasNext() &amp;&amp;  j&lt; attractionsProposedToUser ) {</span>
-<span class="fc" id="L116">			Map.Entry&lt;Attraction, Double&gt; mapentry = iterator.next();</span>
+<span class="nc" id="L113">		Iterator&lt;Entry&lt;Attraction, Double&gt;&gt; iterator = mapSorted.entrySet().iterator();</span>
+<span class="nc" id="L114">		int j =0;</span>
+<span class="nc bnc" id="L115" title="All 4 branches missed.">		while(iterator.hasNext() &amp;&amp;  j&lt; attractionsProposedToUser ) {</span>
+<span class="nc" id="L116">			Map.Entry&lt;Attraction, Double&gt; mapentry = iterator.next();</span>
 			
-<span class="fc" id="L118">			Attraction key = (Attraction) mapentry.getKey();</span>
-<span class="fc" id="L119">			Double value = (Double) mapentry.getValue();			</span>
+<span class="nc" id="L118">			Attraction key = (Attraction) mapentry.getKey();</span>
+<span class="nc" id="L119">			Double value = (Double) mapentry.getValue();			</span>
 			
-<span class="fc" id="L121">			JSONObject attraction = new JSONObject();	</span>
-<span class="fc" id="L122">			attraction.put(&quot;name&quot;, key.attractionName);</span>
-<span class="fc" id="L123">			attraction.put(&quot;latitude&quot;, key.latitude);</span>
-<span class="fc" id="L124">			attraction.put(&quot;longitude&quot;, key.longitude);</span>
-<span class="fc" id="L125">			attraction.put(&quot;rewardPoints&quot;, JsonStream.serialize(rewardCentral.getAttractionRewardPoints(</span>
-<span class="fc" id="L126">					key.attractionId, user.getUserId())));</span>
-<span class="fc" id="L127">			attraction.put(&quot;distance&quot;, value);</span>
-<span class="fc" id="L128">			attractionsWanted.put(attraction);</span>
+<span class="nc" id="L121">			JSONObject attraction = new JSONObject();	</span>
+<span class="nc" id="L122">			attraction.put(&quot;name&quot;, key.attractionName);</span>
+<span class="nc" id="L123">			attraction.put(&quot;latitude&quot;, key.latitude);</span>
+<span class="nc" id="L124">			attraction.put(&quot;longitude&quot;, key.longitude);</span>
+<span class="nc" id="L125">			attraction.put(&quot;rewardPoints&quot;, JsonStream.serialize(rewardCentral.getAttractionRewardPoints(</span>
+<span class="nc" id="L126">					key.attractionId, user.getUserId())));</span>
+<span class="nc" id="L127">			attraction.put(&quot;distance&quot;, value);</span>
+<span class="nc" id="L128">			attractionsWanted.put(attraction);</span>
 			
-<span class="fc" id="L130">			j++;	</span>
-<span class="fc" id="L131">		}</span>
+<span class="nc" id="L130">			j++;	</span>
+<span class="nc" id="L131">		}</span>
 	
-<span class="fc" id="L133">		JSONObject result = new JSONObject();</span>
-<span class="fc" id="L134">		result.put(&quot;user's location&quot;,JsonStream.serialize(visitedLocation.location));</span>
-<span class="fc" id="L135">		result.put(&quot;attraction&quot;, attractionsWanted);</span>
+<span class="nc" id="L133">		JSONObject result = new JSONObject();</span>
+<span class="nc" id="L134">		result.put(&quot;user's location&quot;,JsonStream.serialize(visitedLocation.location));</span>
+<span class="nc" id="L135">		result.put(&quot;attraction&quot;, attractionsWanted);</span>
 		
-<span class="fc" id="L137">		return result;</span>
+<span class="nc" id="L137">		return result;</span>
 		}
 
 //	HttpHeaders headers = new HttpHeaders();

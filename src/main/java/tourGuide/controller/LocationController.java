@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jsoniter.output.JsonStream;
 
-import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
+import tourGuide.model.User;
 import tourGuide.service.LocationsService;
 import tourGuide.service.UserService;
-import tourGuide.user.User;
 
 @RestController
 public class LocationController {

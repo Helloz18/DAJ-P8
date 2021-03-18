@@ -16,13 +16,13 @@ import com.jsoniter.output.JsonStream;
 
 import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
+import tourGuide.model.User;
 import tourGuide.service.AttractionsService;
 import tourGuide.service.LocationsService;
 import tourGuide.service.RewardsService;
 import tourGuide.service.TestService;
 import tourGuide.service.UserService;
 import tourGuide.tracker.Tracker;
-import tourGuide.user.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -92,17 +92,16 @@ public class TestPerformance {
 		////v2 - utilisation d'un pool de thread : amélioration des résultats
 		int nombre = 1000;
 		ExecutorService executorService = Executors.newFixedThreadPool(nombre);
-	//	List<Future<VisitedLocation>> futures = new ArrayList<>();
+		List<Future<VisitedLocation>> futures = new ArrayList<>();
 		
 		// WHEN
 		for(User user : allUsers) {
-			executorService.execute(() -> locationsService.trackUserLocation(user));
-		//	futures.add(executorService.submit( () -> locationsService.trackUserLocation(user) ));
+		//	executorService.execute(() -> locationsService.trackUserLocation(user));
+			futures.add(executorService.submit( () -> locationsService.trackUserLocation(user) ));
 		}
-//		for ( Future<VisitedLocation> future : futures ) {
-//			VisitedLocation visitedLocation = future.get();
-//			System.out.println(visitedLocation);
-//		}
+		for ( Future<VisitedLocation> future : futures ) {
+			future.get();
+		}
 		executorService.shutdown(); 
 		
 		/////v1 - appel direct à la méthode
@@ -135,41 +134,32 @@ public class TestPerformance {
 		// V2
 		int nombre = 1000;
 		ExecutorService executorService = Executors.newFixedThreadPool(nombre);
-		//List<Future<?>> futures = new ArrayList<>();
+		List<Future<?>> futures = new ArrayList<>();
 	
 		// WHEN
 		for(User u : allUsers) {
-			Runnable r = () -> {
-			    rewardsService.calculateRewards(u);
-				assertTrue(u.getUserRewards().size() > 0);
-			};
-			//execute() return void donc faire l'assertion avant
-			executorService.execute(r);
+//			Runnable r = () -> {
+//			    rewardsService.calculateRewards(u);
+//				assertTrue(u.getUserRewards().size() > 0);
+//			};
+//			//execute() return void donc faire l'assertion avant
+//			executorService.execute(r);
 			
-//			futures.add(executorService.submit( (
-//					) -> rewardsService.calculateRewards(u) ));
-//			}
-//			for(Future<?> future : futures) {
-//				future.get();
+			futures.add(executorService.submit( (
+					) -> rewardsService.calculateRewards(u) ));
+			}
+			for(Future<?> future : futures) {
+				future.get();
 			}	
 			executorService.shutdown();
 		
 		//V1
 	    //allUsers.forEach(u -> rewardsService.calculateRewards(u));
 	    
-//		for(User user : allUsers) {
-//			assertTrue(user.getUserRewards().size() > 0);
-//		}
-//		
-//		for(User user : allUsers) {
-//
-//			Runnable runnableTask = () -> {
-//				rewardsService.calculateRewards(user);
-//				assertTrue(user.getUserRewards().size() > 0);
-//			};
+		for(User user : allUsers) {
+			assertTrue(user.getUserRewards().size() > 0);
+		}
 
-//		executorService.execute(runnableTask);
-//		}
 		stopWatch.stop();
 		testService.tracker.stopTracking();
 		

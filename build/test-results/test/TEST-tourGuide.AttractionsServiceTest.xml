@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tourGuide.AttractionsServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-03-17T21:49:17" hostname="LAPTOP-O34I53V9" time="3.435">
+<testsuite name="tourGuide.AttractionsServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-03-17T22:33:06" hostname="LAPTOP-O34I53V9" time="3.16">
   <properties/>
-  <testcase name="testReturnOfSerializeGetFiveNearAttractions" classname="tourGuide.AttractionsServiceTest" time="2.759"/>
-  <testcase name="testGetAttractionsByDistance" classname="tourGuide.AttractionsServiceTest" time="0.652"/>
-  <system-out><![CDATA[2021-03-17 22:49:17.047 warn 25144 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
-[{"distance":3903.4293400005004,"latitude":33.817595,"name":"Disneyland","rewardPoints":"839","longitude":-117.922008},{"distance":3921.6821191854383,"latitude":32.735317,"name":"San Diego Zoo","rewardPoints":"688","longitude":-117.149048},{"distance":4014.6790832662355,"latitude":33.881866,"name":"Joshua Tree National Park","rewardPoints":"688","longitude":-115.90065},{"distance":4058.8859120317247,"latitude":61.218887,"name":"McKinley Tower","rewardPoints":"740","longitude":-149.877502},{"distance":4062.875750783564,"latitude":35.141689,"name":"Mojave National Preserve","rewardPoints":"678","longitude":-115.510399}]
-2021-03-17 22:49:19.856 warn 25144 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
+  <testcase name="testReturnOfSerializeGetFiveNearAttractions" classname="tourGuide.AttractionsServiceTest" time="2.522"/>
+  <testcase name="testGetAttractionsByDistance" classname="tourGuide.AttractionsServiceTest" time="0.605"/>
+  <system-out><![CDATA[2021-03-17 23:33:06.854 warn 2512 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
+[{"distance":5888.443214264622,"latitude":61.218887,"name":"McKinley Tower","rewardPoints":"30","longitude":-149.877502},{"distance":7218.776512759705,"latitude":33.817595,"name":"Disneyland","rewardPoints":"665","longitude":-117.922008},{"distance":7270.154239822171,"latitude":32.735317,"name":"San Diego Zoo","rewardPoints":"362","longitude":-117.149048},{"distance":7333.629079043433,"latitude":33.881866,"name":"Joshua Tree National Park","rewardPoints":"213","longitude":-115.90065},{"distance":7345.456217490166,"latitude":35.141689,"name":"Mojave National Preserve","rewardPoints":"117","longitude":-115.510399}]
+2021-03-17 23:33:09.390 warn 2512 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

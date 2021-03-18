@@ -20,9 +20,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import tourGuide.controller.LocationController;
+import tourGuide.model.User;
 import tourGuide.service.LocationsService;
 import tourGuide.service.UserService;
-import tourGuide.user.User;
 
 
 @RunWith(SpringRunner.class)

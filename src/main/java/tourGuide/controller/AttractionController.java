@@ -1,27 +1,19 @@
 package tourGuide.controller;
 
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.jsoniter.output.JsonStream;
 
+import tourGuide.model.User;
 import tourGuide.service.AttractionsService;
 import tourGuide.service.UserService;
-import tourGuide.user.User;
 
 @RestController
 public class AttractionController {
@@ -31,22 +23,7 @@ public class AttractionController {
 	
 	@Autowired
 	UserService userService;
-	
 
-//  TODO: Change this method to no longer return a List of Attractions.
- 	//  Instead: Get the closest five tourist attractions to the user - no matter how far away they are.
- 	//  Return a new JSON object that contains:
-    	// Name of Tourist attraction, 
-        // Tourist attractions lat/long, 
-        // The user's location lat/long, 
-        // The distance in miles between the user's location and each of the attractions.
-        // The reward points for visiting each Attraction.
-        //    Note: Attraction reward points can be gathered from RewardsCentral
-//    @RequestMapping("/getNearbyAttractions") 
-//    public String getNearbyAttractions(@RequestParam String userName) {
-//    	VisitedLocation visitedLocation = tourGuideService.getUserLocation(getUser(userName));
-//    	return JsonStream.serialize(tourGuideService.getNearByAttractions(visitedLocation));
-//    }
  /**
   * use to propose the fifth attractions around a user despite the distance
   * @param userName

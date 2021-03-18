@@ -18,10 +18,10 @@ import org.springframework.test.web.servlet.MockMvc;
 
 
 import tourGuide.controller.RewardsController;
+import tourGuide.model.User;
+import tourGuide.model.UserReward;
 import tourGuide.service.RewardsService;
 import tourGuide.service.UserService;
-import tourGuide.user.User;
-import tourGuide.user.UserReward;
 
 
 @RunWith(SpringRunner.class)

@@ -17,9 +17,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import tourGuide.controller.TripDealsController;
+import tourGuide.model.User;
 import tourGuide.service.TripPricerService;
 import tourGuide.service.UserService;
-import tourGuide.user.User;
 import tripPricer.Provider;
 
 
