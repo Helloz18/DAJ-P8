@@ -16,7 +16,7 @@ Composant externe : <a href="https://github.com/Helloz18/distanceService">distan
 
 #Dockeriser
 
-• création du jar : <b>mvn clean package</b>
+• création du jar : gradle task / build / <b>bootJar</b>
 
 • création de l’image docker via la commande : <b>docker build --tag=tourguide:latest .</b>
 (le tag doit être en miniscule)
