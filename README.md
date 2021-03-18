@@ -3,6 +3,7 @@
 <i>Application pour l'entreprise Trip Master. Elle permet aux utilisateurs de voir quelles sont les attractions touristiques à proximité et d’obtenir des réductions sur les séjours à l’hôtel ainsi que sur les billets de différents spectacles.</i>
 
 <hr>
+
 Projet Spring Boot : spring-boot-gradle-plugin:2.1.6.RELEASE
 
 Gradle : gradle-6.7.1
@@ -14,6 +15,7 @@ Composant externe : <a href="https://github.com/Helloz18/distanceService">distan
 <hr>
 
 #Dockeriser
+
 • création du jar : <b>mvn clean package</b>
 
 • création de l’image docker via la commande : <b>docker build --tag=tourguide:latest .</b>
