@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tourGuide.TestPerformance" tests="4" skipped="0" failures="0" errors="0" timestamp="2021-03-17T22:33:14" hostname="LAPTOP-O34I53V9" time="0.26">
+<testsuite name="tourGuide.TestPerformance" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-18T19:40:42" hostname="LAPTOP-O34I53V9" time="0.229">
   <properties/>
-  <testcase name="highVolumeGetFiveNearAttractions" classname="tourGuide.TestPerformance" time="0.031"/>
-  <testcase name="highVolumeTrackLocation" classname="tourGuide.TestPerformance" time="0.015"/>
-  <testcase name="highVolumeGetRewards" classname="tourGuide.TestPerformance" time="0.027"/>
-  <testcase name="highVolumeGetAllUsersLocation" classname="tourGuide.TestPerformance" time="0.041"/>
-  <system-out><![CDATA[2021-03-17 23:33:13.990 warn 2512 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
-2021-03-17 23:33:14.005 warn 2512 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
-highVolumeGetFive: Time Elapsed: 0 seconds.
-2021-03-17 23:33:14.047 warn 2512 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
-2021-03-17 23:33:14.060 warn 2512 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
-highVolumeTrackLocation: Time Elapsed: 0 seconds.
-2021-03-17 23:33:14.081 warn 2512 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
-2021-03-17 23:33:14.150 warn 2512 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
-highVolumeGetRewards: Time Elapsed: 0 seconds.
-2021-03-17 23:33:14.185 warn 2512 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
-2021-03-17 23:33:14.205 warn 2512 --- [    Test worker] tourGuide.service.TestService            : TestMode enabled
+  <testcase name="highVolumeGetAllUsersLocation" classname="tourGuide.TestPerformance" time="0.229"/>
+  <system-out><![CDATA[20:40:42.299 [Test worker] INFO tourGuide.service.TestService - TestMode enabled
+20:40:42.314 [Test worker] DEBUG tourGuide.service.TestService - Initializing users
+20:40:42.564 [Test worker] DEBUG tourGuide.service.TestService - Created 1000 internal test users.
+20:40:42.565 [Test worker] DEBUG tourGuide.service.TestService - Finished initializing users
+20:40:42.568 [Test worker] INFO tourGuide.service.TestService - TestMode enabled
+20:40:42.569 [Test worker] DEBUG tourGuide.service.TestService - Initializing users
+20:40:42.582 [pool-1-thread-1] DEBUG tourGuide.tracker.Tracker - Begin Tracker. Tracking 1000 users.
+20:40:42.609 [Test worker] DEBUG tourGuide.service.TestService - Created 1000 internal test users.
+20:40:42.609 [Test worker] DEBUG tourGuide.service.TestService - Finished initializing users
+20:40:42.611 [pool-2-thread-1] DEBUG tourGuide.tracker.Tracker - Begin Tracker. Tracking 1000 users.
+20:40:42.617 [Test worker] DEBUG tourGuide.tracker.Tracker - number of users set 1000
+20:40:42.841 [Test worker] DEBUG tourGuide.tracker.Tracker - Stop Tracker.
 highVolumeGetAllUsers: Time Elapsed: 0 seconds.
 ]]></system-out>
-  <system-err><![CDATA[]]></system-err>
+  <system-err><![CDATA[mars 18, 2021 8:40:42 PM org.javamoney.moneta.DefaultMonetaryContextFactory createMonetaryContextNonNullConfig
+INFOS: Using custom MathContext: precision=256, roundingMode=HALF_EVEN
+]]></system-err>
 </testsuite>

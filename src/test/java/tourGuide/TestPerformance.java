@@ -148,18 +148,16 @@ public class TestPerformance {
 	
 		// WHEN
 		for(User u : allUsers) {
-			Runnable r = () -> {
+			executorService.execute(() -> {
 			    try {
+					System.out.println("Executing Task inside : " + Thread.currentThread().getName());
+					
 					rewardsService.calculateRewards(u);
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} 
-				assertTrue(u.getUserRewards().size() > 0);
-			};
+			});
 		
-			//execute() return void donc faire l'assertion avant
-			executorService.execute(r);
 		}
 			
 //			futures.add(executorService.submit( (
@@ -197,27 +195,19 @@ public class TestPerformance {
 		allUsers = userService.getAllUsers();
 		//List<Future<JSONObject>> futures = new ArrayList<>();
 		
-		ObjectMapper mapper = new ObjectMapper();
-		
 		//WHEN
 		for(User u : allUsers) {
 			executorService.execute(() -> {
 				try {
-					JSONObject j = attractionsService.getFiveNearAttractionsWithDistanceAndRewardsFromCurrentUserLocation(u);
-					try {
-						assertTrue(mapper.readTree("attraction").size() == 5);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					System.out.println("Executing Task inside : " + Thread.currentThread().getName());
+					
+					attractionsService.getFiveNearAttractionsWithDistanceAndRewardsFromCurrentUserLocation(u);
+					
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (ExecutionException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			});
@@ -260,11 +250,11 @@ public class TestPerformance {
 		for(User user : allUsers) {
 			executorService.execute(() ->{
 				try {
+					System.out.println("Executing Task inside : " + Thread.currentThread().getName());
 					jsonAllUsersLocations.put(
-							//				user.getUserId().toString(), JsonStream.serialize(locationsService.getLocation(user)))));
+							//	user.getUserId().toString(), JsonStream.serialize(locationsService.getLocation(user)))));
 							user.getUserId().toString(), JsonStream.serialize(locationsService.trackUserLocation(user)));
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} 
 			});

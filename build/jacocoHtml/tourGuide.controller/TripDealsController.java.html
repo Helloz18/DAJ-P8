@@ -14,9 +14,9 @@ import tourGuide.service.UserService;
 import tripPricer.Provider;
 
 @RestController
-<span class="fc" id="L17">public class TripDealsController {</span>
+<span class="nc" id="L17">public class TripDealsController {</span>
 	
-<span class="fc" id="L19">	TripPricerService tripPricerService = new TripPricerService();</span>
+<span class="nc" id="L19">	TripPricerService tripPricerService = new TripPricerService();</span>
 	
 	@Autowired
 	UserService userService;
@@ -29,8 +29,8 @@ import tripPricer.Provider;
      */
     @RequestMapping(&quot;/getTripDeals&quot;)
     public String getTripDeals(@RequestParam String userName) {
-<span class="fc" id="L32">    	List&lt;Provider&gt; providers = tripPricerService.getTripDeals(userService.getUser(userName));</span>
-<span class="fc" id="L33">    	return JsonStream.serialize(providers);</span>
+<span class="nc" id="L32">    	List&lt;Provider&gt; providers = tripPricerService.getTripDeals(userService.getUser(userName));</span>
+<span class="nc" id="L33">    	return JsonStream.serialize(providers);</span>
     }
     
     
