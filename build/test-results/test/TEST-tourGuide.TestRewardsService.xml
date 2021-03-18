@@ -1,122 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tourGuide.TestRewardsService" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-17T22:32:42" hostname="LAPTOP-O34I53V9" time="17.52">
+<testsuite name="tourGuide.TestRewardsService" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-03-18T16:08:10" hostname="LAPTOP-O34I53V9" time="13.381">
   <properties/>
-  <testcase name="testCalculateRewards" classname="tourGuide.TestRewardsService" time="17.52"/>
-  <system-out><![CDATA[23:32:41.718 [Test worker] INFO tourGuide.service.TestService - TestMode enabled
-23:32:41.741 [Test worker] DEBUG tourGuide.service.TestService - Initializing users
-23:32:42.011 [Test worker] DEBUG tourGuide.service.TestService - Created 100 internal test users.
-23:32:42.012 [Test worker] DEBUG tourGuide.service.TestService - Finished initializing users
-23:32:42.036 [pool-1-thread-1] DEBUG tourGuide.tracker.Tracker - Begin Tracker. Tracking 100 users.
-23:32:42.039 [pool-1-thread-1] DEBUG tourGuide.tracker.Tracker - Tracker Time Elapsed: 0 seconds.
-23:32:42.040 [pool-1-thread-1] DEBUG tourGuide.tracker.Tracker - Tracker sleeping
-23:32:43.963 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:33.817595,%22latitude%22:-117.922008%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:44.004 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:44.028 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:44.043 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:44.446 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:43.582767,%22latitude%22:-110.821999%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:44.447 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:44.451 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:44.452 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:44.648 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:35.141689,%22latitude%22:-115.510399%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:44.650 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:44.658 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:44.661 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:45.375 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:33.881866,%22latitude%22:-115.90065%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:45.377 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:45.384 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:45.386 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:45.788 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:35.985512,%22latitude%22:-92.757652%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:45.789 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:45.796 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:45.797 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:46.041 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:34.52153,%22latitude%22:-93.042267%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:46.042 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:46.046 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:46.047 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:46.985 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:31.837551,%22latitude%22:-110.347382%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:46.986 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:46.991 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:46.994 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:47.558 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:39.937778,%22latitude%22:-82.40667%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:47.558 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:47.562 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:47.563 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:48.171 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:37.131527,%22latitude%22:-84.07486%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:48.173 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:48.177 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:48.178 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:49.107 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:61.218887,%22latitude%22:-149.877502%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:49.108 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:49.113 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:49.113 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:49.965 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:40.741112,%22latitude%22:-73.989723%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:49.966 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:49.971 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:49.972 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:50.432 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:39.906113,%22latitude%22:-79.468056%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:50.433 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:50.436 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:50.437 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:51.152 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:38.897095,%22latitude%22:-77.006332%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:51.153 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:51.159 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:51.160 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:52.154 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:26.890959,%22latitude%22:-80.116577%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:52.155 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:52.158 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:52.159 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:52.750 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:30.283682,%22latitude%22:-97.732536%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:52.750 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:52.756 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:52.757 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:53.489 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:33.208973,%22latitude%22:-87.550438%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:53.490 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:53.495 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:53.495 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:54.147 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:30.412035,%22latitude%22:-91.183815%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:54.149 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:54.152 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:54.154 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:54.754 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:35.955013,%22latitude%22:-83.925011%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:54.755 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:54.761 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:54.762 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:55.729 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:30.61025,%22latitude%22:-96.339844%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:55.730 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:55.733 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:55.734 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:56.353 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:32.735317,%22latitude%22:-117.149048%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:56.353 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:56.357 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:56.358 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:57.142 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:28.012804,%22latitude%22:-82.469269%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:57.142 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:57.145 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:57.146 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:57.950 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:42.302601,%22latitude%22:-71.086731%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:57.951 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:57.960 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:57.961 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:58.354 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:31.769125,%22latitude%22:-106.44487%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:58.355 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:58.358 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:58.359 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:58.410 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:39.007504,%22latitude%22:-94.529625%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:58.411 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:58.414 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:58.415 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:59.152 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:40.852905,%22latitude%22:-73.872971%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:59.153 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:59.156 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:59.157 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:59.459 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:28.419411,%22latitude%22:-81.5812%7D&location2=%7B%22attractionName%22:%22Disneyland%22,%22city%22:%22Anaheim%22,%22state%22:%22CA%22,%22attractionId%22:%7B%22mostSigBits%22:-2288104310856594283,%22leastSigBits%22:-7884739600066574240,%22leastSignificantBits%22:-7884739600066574240,%22mostSignificantBits%22:-2288104310856594283%7D,%22longitude%22:-117.922008,%22latitude%22:33.817595%7D
-23:32:59.460 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
-23:32:59.465 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
-23:32:59.466 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
-23:32:59.537 [Test worker] DEBUG tourGuide.tracker.Tracker - Stop Tracker.
-1
+  <testcase name="testCalculateRewards" classname="tourGuide.TestRewardsService" time="13.381"/>
+  <system-out><![CDATA[17:08:10.256 [Test worker] INFO tourGuide.service.TestService - TestMode enabled
+17:08:10.265 [Test worker] DEBUG tourGuide.service.TestService - Initializing users
+17:08:10.373 [Test worker] DEBUG tourGuide.service.TestService - Created 100 internal test users.
+17:08:10.373 [Test worker] DEBUG tourGuide.service.TestService - Finished initializing users
+17:08:10.383 [pool-1-thread-1] DEBUG tourGuide.tracker.Tracker - Begin Tracker. Tracking 100 users.
+17:08:11.178 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:33.817595,%22latitude%22:-117.922008%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:11.199 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:11.219 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:11.226 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:11.530 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:43.582767,%22latitude%22:-110.821999%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:11.531 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:11.539 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:11.540 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:11.603 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:35.141689,%22latitude%22:-115.510399%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:11.604 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:11.606 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:11.607 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:11.738 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:33.881866,%22latitude%22:-115.90065%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:11.738 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:11.741 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:11.742 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:11.983 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:35.985512,%22latitude%22:-92.757652%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:11.984 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:11.990 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:11.991 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:12.238 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:34.52153,%22latitude%22:-93.042267%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:12.238 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:12.241 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:12.242 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:12.973 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:31.837551,%22latitude%22:-110.347382%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:12.974 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:12.976 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:12.977 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:13.765 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:39.937778,%22latitude%22:-82.40667%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:13.765 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:13.767 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:13.768 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:14.655 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:37.131527,%22latitude%22:-84.07486%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:14.655 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:14.663 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:14.664 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:15.598 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:61.218887,%22latitude%22:-149.877502%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:15.598 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:15.601 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:15.602 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:15.617 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:40.741112,%22latitude%22:-73.989723%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:15.618 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:15.620 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:15.621 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:16.030 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:39.906113,%22latitude%22:-79.468056%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:16.030 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:16.033 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:16.033 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:16.866 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:38.897095,%22latitude%22:-77.006332%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:16.866 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:16.873 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:16.875 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:17.623 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:26.890959,%22latitude%22:-80.116577%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:17.624 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:17.628 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:17.630 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:17.912 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:30.283682,%22latitude%22:-97.732536%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:17.913 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:17.915 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:17.915 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:18.246 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:33.208973,%22latitude%22:-87.550438%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:18.247 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:18.258 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:18.259 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:18.723 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:30.412035,%22latitude%22:-91.183815%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:18.724 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:18.728 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:18.730 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:19.282 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:35.955013,%22latitude%22:-83.925011%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:19.283 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:19.286 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:19.286 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:19.292 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:30.61025,%22latitude%22:-96.339844%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:19.293 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:19.294 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:19.295 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:20.214 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:32.735317,%22latitude%22:-117.149048%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:20.214 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:20.217 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:20.218 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:21.032 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:28.012804,%22latitude%22:-82.469269%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:21.032 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:21.035 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:21.035 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:21.066 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:42.302601,%22latitude%22:-71.086731%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:21.066 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:21.068 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:21.068 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:21.457 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:31.769125,%22latitude%22:-106.44487%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:21.458 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:21.460 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:21.460 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:22.407 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:39.007504,%22latitude%22:-94.529625%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:22.407 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:22.414 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:22.414 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:22.589 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:40.852905,%22latitude%22:-73.872971%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:22.589 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:22.591 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:22.592 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:22.999 [Test worker] DEBUG org.springframework.web.client.RestTemplate - HTTP GET http://localhost:5000/distance?location1=%7B%22longitude%22:28.419411,%22latitude%22:-81.5812%7D&location2=%7B%22longitude%22:55.032926,%22latitude%22:-37.031999%7D
+17:08:22.999 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Accept=[application/json, application/*+json]
+17:08:23.002 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Response 200 OK
+17:08:23.003 [Test worker] DEBUG org.springframework.web.client.RestTemplate - Reading to [java.lang.Double]
+17:08:23.741 [Test worker] DEBUG tourGuide.tracker.Tracker - Stop Tracker.
 ]]></system-out>
-  <system-err><![CDATA[mars 17, 2021 11:32:41 PM org.javamoney.moneta.DefaultMonetaryContextFactory createMonetaryContextNonNullConfig
+  <system-err><![CDATA[mars 18, 2021 5:08:10 PM org.javamoney.moneta.DefaultMonetaryContextFactory createMonetaryContextNonNullConfig
 INFOS: Using custom MathContext: precision=256, roundingMode=HALF_EVEN
 ]]></system-err>
 </testsuite>

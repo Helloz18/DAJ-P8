@@ -35,7 +35,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class TestPerformance {
@@ -70,6 +69,9 @@ public class TestPerformance {
 	
 	
 	private Logger logger = LoggerFactory.getLogger(Tracker.class);
+	int nombre = 1000;
+	ExecutorService executorService = Executors.newFixedThreadPool(nombre);
+
 	
 	/**
 	 * méthode ajoutée pour paramétrer la locale par défaut dans tous les tests de la classe
@@ -78,6 +80,7 @@ public class TestPerformance {
 	public void init() {
 		Locale.setDefault(Locale.US);
 		logger.debug("number of users set "+InternalTestHelper.getInternalUserNumber());
+	
 	}
 	
 	@Test
@@ -90,17 +93,26 @@ public class TestPerformance {
 		stopWatch.start();
 
 		////v2 - utilisation d'un pool de thread : amélioration des résultats
-		int nombre = 1000;
-		ExecutorService executorService = Executors.newFixedThreadPool(nombre);
-		List<Future<VisitedLocation>> futures = new ArrayList<>();
+		//List<Future<VisitedLocation>> futures = new ArrayList<>();
 		
 		// WHEN
 		for(User user : allUsers) {
-		//	executorService.execute(() -> locationsService.trackUserLocation(user));
-			futures.add(executorService.submit( () -> locationsService.trackUserLocation(user) ));
-		}
-		for ( Future<VisitedLocation> future : futures ) {
-			future.get();
+			
+			executorService.execute(() -> {
+				try {
+					locationsService.trackUserLocation(user);
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				
+			});	
+			
+//			futures.add(executorService.submit( () -> locationsService.trackUserLocation(user) ));
+//		}
+//		for ( Future<VisitedLocation> future : futures ) {
+//			future.get();
 		}
 		executorService.shutdown(); 
 		
@@ -132,33 +144,38 @@ public class TestPerformance {
 		allUsers.forEach(u -> u.addToVisitedLocations(new VisitedLocation(u.getUserId(), attraction, new Date())));
 	     
 		// V2
-		int nombre = 1000;
-		ExecutorService executorService = Executors.newFixedThreadPool(nombre);
-		List<Future<?>> futures = new ArrayList<>();
+		//List<Future<?>> futures = new ArrayList<>();
 	
 		// WHEN
 		for(User u : allUsers) {
-//			Runnable r = () -> {
-//			    rewardsService.calculateRewards(u);
-//				assertTrue(u.getUserRewards().size() > 0);
-//			};
-//			//execute() return void donc faire l'assertion avant
-//			executorService.execute(r);
+			Runnable r = () -> {
+			    try {
+					rewardsService.calculateRewards(u);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				assertTrue(u.getUserRewards().size() > 0);
+			};
+		
+			//execute() return void donc faire l'assertion avant
+			executorService.execute(r);
+		}
 			
-			futures.add(executorService.submit( (
-					) -> rewardsService.calculateRewards(u) ));
-			}
-			for(Future<?> future : futures) {
-				future.get();
-			}	
+//			futures.add(executorService.submit( (
+//					) -> rewardsService.calculateRewards(u) ));
+//			}
+//			for(Future<?> future : futures) {
+//				future.get();
+//			}	
 			executorService.shutdown();
 		
 		//V1
 	    //allUsers.forEach(u -> rewardsService.calculateRewards(u));
 	    
-		for(User user : allUsers) {
-			assertTrue(user.getUserRewards().size() > 0);
-		}
+//		for(User user : allUsers) {
+//			assertTrue(user.getUserRewards().size() > 0);
+//		}
 
 		stopWatch.stop();
 		testService.tracker.stopTracking();
@@ -178,8 +195,6 @@ public class TestPerformance {
 		//GIVEN
 		List<User> allUsers = new ArrayList<>();
 		allUsers = userService.getAllUsers();
-		int nombre = 1000;
-		ExecutorService executorService = Executors.newFixedThreadPool(nombre);
 		//List<Future<JSONObject>> futures = new ArrayList<>();
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -239,15 +254,20 @@ public class TestPerformance {
 		JSONObject jsonAllUsersLocations = new JSONObject();
 		
 		//WHEN
-		int nombre = 1000;
-		ExecutorService executorService = Executors.newFixedThreadPool(nombre);
 		//List<Future<JSONObject>> futures = new ArrayList<>();
 			
 		//WHEN
 		for(User user : allUsers) {
-			executorService.execute(() ->jsonAllUsersLocations.put(
-					//				user.getUserId().toString(), JsonStream.serialize(locationsService.getLocation(user)))));
-					user.getUserId().toString(), JsonStream.serialize(locationsService.trackUserLocation(user))));
+			executorService.execute(() ->{
+				try {
+					jsonAllUsersLocations.put(
+							//				user.getUserId().toString(), JsonStream.serialize(locationsService.getLocation(user)))));
+							user.getUserId().toString(), JsonStream.serialize(locationsService.trackUserLocation(user)));
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			});
 					;
 //		futures.add(executorService.submit( (
 //				) -> jsonAllUsersLocations.put(

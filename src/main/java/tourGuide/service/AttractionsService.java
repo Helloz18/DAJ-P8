@@ -1,5 +1,6 @@
 package tourGuide.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -7,6 +8,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 import org.json.JSONArray;
@@ -50,16 +54,40 @@ public class AttractionsService {
 			throws InterruptedException, ExecutionException {
 		List<Attraction> attractions = gpsUtil.getAttractions();
 		Map<Attraction, Double> attractionDistance = new HashMap<Attraction, Double>();
-
-		attractions.parallelStream().forEach((attraction) -> {
+		int nombre = 1000;
+		ExecutorService executorService = Executors.newFixedThreadPool(nombre);
+		List<Future<ResponseEntity<Double>>> futures = new ArrayList<>();
+		
+		
+		//attractions.parallelStream().forEach((attraction) -> {
+		for(Attraction attraction : attractions) {
 			Location loc1 = new Location(attraction.longitude, attraction.latitude);
 			String location1 = JsonStream.serialize(loc1);
 			String location2 = JsonStream.serialize(visitedLocation.location);
-			ResponseEntity<Double> reponse = new RestTemplate().getForEntity(
-					URL + "/distance?location1={location1}&location2={location2}", Double.class, location1, location2);
-			attractionDistance.put(attraction, reponse.getBody());
-		});
+			
+			futures.add(executorService.submit( (
+					) -> 				
+			 new RestTemplate().getForEntity(
+					URL + "/distance?location1={location1}&location2={location2}", Double.class, location1, location2)));
+		
+			for(Future<ResponseEntity<Double>> future : futures) {
+				double reponse;
+				try {
+					reponse = future.get().getBody();
+					attractionDistance.put(attraction, reponse);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
+			}
+		
+
+		};
+		executorService.shutdown();
 		Map<Attraction, Double> mapSortedByValue = attractionDistance.entrySet().parallelStream()
 				.sorted(Map.Entry.comparingByValue())
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));

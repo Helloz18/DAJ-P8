@@ -2,11 +2,13 @@ package tourGuide;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
+import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,6 +18,7 @@ import gpsUtil.location.Attraction;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import rewardCentral.RewardCentral;
+import tourGuide.helper.InternalTestHelper;
 import tourGuide.model.User;
 import tourGuide.model.UserReward;
 import tourGuide.service.LocationsService;
@@ -33,44 +36,55 @@ public class TestRewardsService {
 	@Before
 	public void init() {
 		Locale.setDefault(Locale.US);
-
-	}
-	
-	@Test
-	public void userGetRewards() {	
 		rewardsService.setProximityBuffer(Integer.MAX_VALUE);
 		
-		User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
-		Attraction attraction = gpsUtil.getAttractions().get(0);
-		user.addToVisitedLocations(new VisitedLocation(user.getUserId(), attraction, new Date()));
-		UserReward userReward = new UserReward(
-				new VisitedLocation(user.getUserId(), new Location(1.2, 2.3), null),
-				new Attraction("nameOfAttraction", "cityOfAttraction", "stateOfAttraction",1.2, 2.3),
-					(int) (Math.random() * ( 1000 - 100 )));
-		user.addUserReward(userReward);
-		List<UserReward> userRewards = rewardsService.getUserRewards(user);
-		testService.tracker.stopTracking();
-		assertTrue(userRewards.size() > 0);
 	}
 	
 	@Test
-	public void isWithinAttractionProximity() {
+	public void nearAttrationTest() {
+		User user = testService.getAllUsers().get(0);
+		VisitedLocation visitedLocation = gpsUtil.getUserLocation(user.getUserId());
 		Attraction attraction = gpsUtil.getAttractions().get(0);
-		assertTrue(rewardsService.isWithinAttractionProximity(attraction, attraction));
+		assertTrue(rewardsService.nearAttraction(visitedLocation, attraction));
 	}
 	
+
 	
 	//changement de nom : test d'originie nearAllAttractions, changé en calculateRewards
 	// modification du service, à la place du forEach, une boucle for seulement
 	// méthode très longue
 	@Test
-	public void testCalculateRewards() {
-		rewardsService.setProximityBuffer(Integer.MAX_VALUE);
-
-		rewardsService.calculateRewards(testService.getAllUsers().get(0));
-		List<UserReward> userRewards = rewardsService.getUserRewards(testService.getAllUsers().get(0));
+	public void testCalculateRewards() throws JSONException, IOException {
+		User user = testService.getAllUsers().get(0);
+		rewardsService.calculateRewards(user);
+		List<UserReward> userRewards = rewardsService.getUserRewards(user);
 		testService.tracker.stopTracking();
-		assertTrue(userRewards.size() == 1);
+		assertEquals(gpsUtil.getAttractions().size(), userRewards.size());
 	}
+	
+//	@Test
+//	public void userGetRewards() throws JSONException, IOException {	
+//		rewardsService.setProximityBuffer(Integer.MAX_VALUE);
+//		
+//		User user = testService.getAllUsers().get(0);
+//
+//	List<UserReward> userRewards = rewardsService.getUserRewards(user);
+//	locationsService.trackUserLocation(user);
+////		System.out.println(userRewards.size());
+////		
+////		VisitedLocation visitedLocation = gpsUtil.getUserLocation(user.getUserId());
+////		user.addToVisitedLocations(visitedLocation);
+////		rewardsService.calculateRewards(user);
+//		
+//		testService.tracker.stopTracking();
+//		assertTrue(userRewards.size() > 0);
+//	}
+	
+//	@Test
+//	public void isWithinAttractionProximity() {
+//		Attraction attraction = gpsUtil.getAttractions().get(0);
+//		assertTrue(rewardsService.isWithinAttractionProximity(attraction, attraction));
+//	}
+	
 	
 }

@@ -13,6 +13,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -97,6 +100,7 @@ public class AttractionsServiceTest {
 		@Test
 		public void testGetAttractionsByDistance() throws InterruptedException, ExecutionException {
 			// GIVEN
+			String URL = "http://localhost:5000";
 			User user = new User(UUID.randomUUID(), "jon", "000", "jon@tourGuide.com");
 			VisitedLocation visitedLocation = locationsService.trackUserLocation(user);
 			// WHEN
@@ -104,19 +108,41 @@ public class AttractionsServiceTest {
 			Map<Attraction, Double> attractionDistance = new HashMap<Attraction, Double>();
 			
 			////// service externe
-			attractions.parallelStream().forEach((attraction) -> {
+			int nombre = 1000;
+			ExecutorService executorService = Executors.newFixedThreadPool(nombre);
+			List<Future<ResponseEntity<Double>>> futures = new ArrayList<>();
+			
+			
+			//attractions.parallelStream().forEach((attraction) -> {
+			for(Attraction attraction : attractions) {
 				Location loc1 = new Location(attraction.longitude, attraction.latitude);
 				String location1 = JsonStream.serialize(loc1);
 				String location2 = JsonStream.serialize(visitedLocation.location);
-				ResponseEntity<Double> reponse = new RestTemplate()
-						.getForEntity(
-						"http://localhost:5000"+"/distance?location1={location1}&location2={location2}", 
-						Double.class, 
-						location1,location2);
-				attractionDistance.put(attraction, reponse.getBody());			
-			
-			});		
 				
+				futures.add(executorService.submit( (
+						) -> 				
+				 new RestTemplate().getForEntity(
+						URL + "/distance?location1={location1}&location2={location2}", Double.class, location1, location2)));
+			
+				for(Future<ResponseEntity<Double>> future : futures) {
+					double reponse;
+					try {
+						reponse = future.get().getBody();
+						attractionDistance.put(attraction, reponse);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ExecutionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
+			
+
+			};
+			executorService.shutdown();
+			
 	        Map<Attraction, Double> mapSortedByValue = new LinkedHashMap<>();
 	        attractionDistance.entrySet().stream()
 	                .sorted(Map.Entry.<Attraction, Double>comparingByValue())

@@ -40,6 +40,7 @@ public class RewardsService {
 	public void setDefaultProximityBuffer() {
 		proximityBuffer = defaultProximityBuffer;
 	}
+	
 
 	/**
 	 * for a user, return the sum of all rewardsPoints earned by his
@@ -64,6 +65,7 @@ public class RewardsService {
 			}
 		}
 	}
+	
 
 	/**
 	 * non utilisée pour le moment attractionProximityRange defines a perimeter
@@ -80,7 +82,7 @@ public class RewardsService {
 		String location2 = JsonStream.serialize(location);
 		ResponseEntity<Double> reponse = new RestTemplate().getForEntity(
 				URL + "/distance?location1={location1}&location2={location2}", Double.class, location1, location2);
-		return reponse.getBody() > attractionProximityRange ? false : true;
+		return (reponse.getBody() > attractionProximityRange) ? false : true;
 	}
 
 	/**
@@ -90,14 +92,16 @@ public class RewardsService {
 	 * @param attraction
 	 * @return
 	 */
-	private boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {
+	public boolean nearAttraction(VisitedLocation visitedLocation, Attraction attraction) {
 		Location loc1 = new Location(attraction.longitude, attraction.latitude);
 		String location1 = JsonStream.serialize(loc1);
 		String location2 = JsonStream.serialize(visitedLocation.location);
 		ResponseEntity<Double> reponse = new RestTemplate().getForEntity(
 				URL + "/distance?location1={location1}&location2={location2}", Double.class, location1, location2);
-
-		return reponse.getBody() > proximityBuffer ? false : true;
+//		System.out.println(reponse.getBody());
+//		System.out.println(proximityBuffer);
+//		System.out.println(reponse.getBody()<proximityBuffer);
+		return (reponse.getBody() < proximityBuffer) ? true : false;
 	}
 
 	/**

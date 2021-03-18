@@ -7,6 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.time.StopWatch;
+import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,7 +17,7 @@ import tourGuide.service.TestService;
 
 public class Tracker extends Thread {
 	private Logger logger = LoggerFactory.getLogger(Tracker.class);
-	private static final long trackingPollingInterval = TimeUnit.MINUTES.toSeconds(100);
+	private static final long trackingPollingInterval = TimeUnit.MINUTES.toSeconds(1000);
 	private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 	private final TestService testService;
 	private boolean stop = false;
@@ -50,7 +51,14 @@ public class Tracker extends Thread {
 			List<User> users = testService.getAllUsers();
 			logger.debug("Begin Tracker. Tracking " + users.size() + " users.");
 			stopWatch.start();
-			users.forEach(u -> locationsService.trackUserLocation(u));
+			users.forEach(u -> {
+				try {
+					locationsService.trackUserLocation(u);
+				} catch (JSONException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			});
 					
 			stopWatch.stop();
 			logger.debug("Tracker Time Elapsed: " + TimeUnit.MILLISECONDS.toSeconds(stopWatch.getTime()) + " seconds."); 

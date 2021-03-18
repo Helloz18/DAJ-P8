@@ -10,7 +10,7 @@ import tourGuide.service.RewardsService;
 import tourGuide.service.UserService;
 
 @RestController
-<span class="fc" id="L13">public class RewardsController {</span>
+<span class="nc" id="L13">public class RewardsController {</span>
 
 	@Autowired
 	RewardsService rewardsService;
@@ -25,7 +25,8 @@ import tourGuide.service.UserService;
      */
     @RequestMapping(&quot;/getRewards&quot;) 
     public String getRewards(@RequestParam String userName) {
-<span class="fc" id="L28">    	return JsonStream.serialize(rewardsService.getUserRewards(userService.getUser(userName)));</span>
+<span class="nc" id="L28">    	rewardsService.calculateRewards(userService.getUser(userName));</span>
+<span class="nc" id="L29">    	return JsonStream.serialize(rewardsService.getUserRewards(userService.getUser(userName)));</span>
     }
     
    

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -18,61 +17,59 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import gpsUtil.GpsUtil;
-import gpsUtil.location.Attraction;
 import gpsUtil.location.Location;
 import gpsUtil.location.VisitedLocation;
 import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
+import tourGuide.model.User;
 import tourGuide.tracker.Tracker;
-import tourGuide.user.User;
-import tourGuide.user.UserReward;
 
 @Service
 public class TestService {
 	
-<span class="fc" id="L33">	private Logger logger = LoggerFactory.getLogger(TestService.class);</span>
+<span class="fc" id="L30">	private Logger logger = LoggerFactory.getLogger(TestService.class);</span>
 	
 	public final Tracker tracker;
-<span class="fc" id="L36">	boolean testMode = true;</span>
+<span class="fc" id="L33">	boolean testMode = true;</span>
 	
-<span class="fc" id="L38">	GpsUtil gpsUtil = new GpsUtil();</span>
-<span class="fc" id="L39">	RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());</span>
+<span class="fc" id="L35">	GpsUtil gpsUtil = new GpsUtil();</span>
+<span class="fc" id="L36">	RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());</span>
 	
-<span class="fc" id="L41">	public TestService(GpsUtil gpsUtil, RewardsService rewardsService) {</span>
-<span class="fc" id="L42">		this.gpsUtil = gpsUtil;</span>
-<span class="fc" id="L43">		this.rewardsService = rewardsService;</span>
+<span class="fc" id="L38">	public TestService(GpsUtil gpsUtil, RewardsService rewardsService) {</span>
+<span class="fc" id="L39">		this.gpsUtil = gpsUtil;</span>
+<span class="fc" id="L40">		this.rewardsService = rewardsService;</span>
 	
-<span class="pc bpc" id="L45" title="1 of 2 branches missed.">		if(testMode) {</span>
-<span class="fc" id="L46">			logger.info(&quot;TestMode enabled&quot;);</span>
-<span class="fc" id="L47">			logger.debug(&quot;Initializing users&quot;);</span>
-<span class="fc" id="L48">			initializeInternalUsers();</span>
-<span class="fc" id="L49">			logger.debug(&quot;Finished initializing users&quot;);</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">		if(testMode) {</span>
+<span class="fc" id="L43">			logger.info(&quot;TestMode enabled&quot;);</span>
+<span class="fc" id="L44">			logger.debug(&quot;Initializing users&quot;);</span>
+<span class="fc" id="L45">			initializeInternalUsers();</span>
+<span class="fc" id="L46">			logger.debug(&quot;Finished initializing users&quot;);</span>
 		}
-<span class="fc" id="L51">		tracker = new Tracker(this);</span>
-<span class="fc" id="L52">		addShutDownHook();</span>
-<span class="fc" id="L53">	}</span>
+<span class="fc" id="L48">		tracker = new Tracker(this);</span>
+<span class="fc" id="L49">		addShutDownHook();</span>
+<span class="fc" id="L50">	}</span>
 	
 	public User getUser(String userName) {
-<span class="nc" id="L56">		return internalUserMap.get(userName);</span>
+<span class="nc" id="L53">		return internalUserMap.get(userName);</span>
 	}
 	
 	public List&lt;User&gt; getAllUsers() {
-<span class="fc" id="L60">		return internalUserMap.values().stream().collect(Collectors.toList());</span>
+<span class="fc" id="L57">		return internalUserMap.values().stream().collect(Collectors.toList());</span>
 	}
 	
 	public void addUser(User user) {
-<span class="nc bnc" id="L64" title="All 2 branches missed.">		if(!internalUserMap.containsKey(user.getUserName())) {</span>
-<span class="nc" id="L65">			internalUserMap.put(user.getUserName(), user);</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">		if(!internalUserMap.containsKey(user.getUserName())) {</span>
+<span class="nc" id="L62">			internalUserMap.put(user.getUserName(), user);</span>
 		}
-<span class="nc" id="L67">	}</span>
+<span class="nc" id="L64">	}</span>
 	
 	private void addShutDownHook() {
-<span class="fc" id="L70">		Runtime.getRuntime().addShutdownHook(new Thread() { </span>
+<span class="fc" id="L67">		Runtime.getRuntime().addShutdownHook(new Thread() { </span>
 		      public void run() {
-<span class="fc" id="L72">		        tracker.stopTracking();</span>
-<span class="fc" id="L73">		      } </span>
+<span class="fc" id="L69">		        tracker.stopTracking();</span>
+<span class="fc" id="L70">		      } </span>
 		    }); 
-<span class="fc" id="L75">	}</span>
+<span class="fc" id="L72">	}</span>
 	
 
 	/**********************************************************************************
@@ -84,31 +81,29 @@ public class TestService {
 	@Value(&quot;${tripPricerApiKey}&quot;)
 	private String tripPricerApiKey;
 	// Database connection will be used for external users, but for testing purposes internal users are provided and stored in memory
-<span class="fc" id="L87">	private final Map&lt;String, User&gt; internalUserMap = new HashMap&lt;&gt;();</span>
+<span class="fc" id="L84">	private final Map&lt;String, User&gt; internalUserMap = new HashMap&lt;&gt;();</span>
 	private void initializeInternalUsers() {
-<span class="fc" id="L89">		IntStream.range(0, InternalTestHelper.getInternalUserNumber()).forEach(i -&gt; {</span>
-<span class="fc" id="L90">			String userName = &quot;internalUser&quot; + i;</span>
-<span class="fc" id="L91">			String phone = &quot;000&quot;;</span>
-<span class="fc" id="L92">			String email = userName + &quot;@tourGuide.com&quot;;</span>
-<span class="fc" id="L93">			User user = new User(UUID.randomUUID(), userName, phone, email);</span>
-<span class="fc" id="L94">			generateUserLocationHistory(user);</span>
-			//ajout de la mÃ©thode pour les rewards
-			//generateUserRewards(user);
+<span class="fc" id="L86">		IntStream.range(0, InternalTestHelper.getInternalUserNumber()).forEach(i -&gt; {</span>
+<span class="fc" id="L87">			String userName = &quot;internalUser&quot; + i;</span>
+<span class="fc" id="L88">			String phone = &quot;000&quot;;</span>
+<span class="fc" id="L89">			String email = userName + &quot;@tourGuide.com&quot;;</span>
+<span class="fc" id="L90">			User user = new User(UUID.randomUUID(), userName, phone, email);</span>
+<span class="fc" id="L91">			generateUserLocationHistory(user);</span>
 			
-<span class="fc" id="L98">			internalUserMap.put(userName, user);</span>
-<span class="fc" id="L99">		});</span>
-<span class="fc" id="L100">		logger.debug(&quot;Created &quot; + InternalTestHelper.getInternalUserNumber() + &quot; internal test users.&quot;);</span>
-<span class="fc" id="L101">	}</span>
+<span class="fc" id="L93">			internalUserMap.put(userName, user);</span>
+<span class="fc" id="L94">		});</span>
+<span class="fc" id="L95">		logger.debug(&quot;Created &quot; + InternalTestHelper.getInternalUserNumber() + &quot; internal test users.&quot;);</span>
+<span class="fc" id="L96">	}</span>
 	
 	private void generateUserLocationHistory(User user) {
-<span class="fc" id="L104">		IntStream.range(0, 1).forEach(i-&gt; {</span>
-<span class="fc" id="L105">			user.addToVisitedLocations(new VisitedLocation(</span>
-<span class="fc" id="L106">					user.getUserId(), new Location(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()));</span>
-<span class="fc" id="L107">		});</span>
-<span class="fc" id="L108">	}</span>
+<span class="fc" id="L99">		IntStream.range(0, 1).forEach(i-&gt; {</span>
+<span class="fc" id="L100">			user.addToVisitedLocations(new VisitedLocation(</span>
+<span class="fc" id="L101">					user.getUserId(), new Location(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()));</span>
+<span class="fc" id="L102">		});</span>
+<span class="fc" id="L103">	}</span>
 	
 //	/**
-//	 * mÃ©thode ajouter pour pouvoir tester /getRewards
+//	 * mÃ©thode ajoutÃ©e pour pouvoir tester /getRewards
 //	 * @param user
 //	 */
 //	private void generateUserRewards(User user) {
@@ -121,20 +116,20 @@ public class TestService {
 //	}
 	
 	private double generateRandomLongitude() {
-<span class="fc" id="L124">		double leftLimit = -180;</span>
-<span class="fc" id="L125">	    double rightLimit = 180;</span>
-<span class="fc" id="L126">	    return leftLimit + new Random().nextDouble() * (rightLimit - leftLimit);</span>
+<span class="fc" id="L119">		double leftLimit = -180;</span>
+<span class="fc" id="L120">	    double rightLimit = 180;</span>
+<span class="fc" id="L121">	    return leftLimit + new Random().nextDouble() * (rightLimit - leftLimit);</span>
 	}
 	
 	private double generateRandomLatitude() {
-<span class="fc" id="L130">		double leftLimit = -85.05112878;</span>
-<span class="fc" id="L131">	    double rightLimit = 85.05112878;</span>
-<span class="fc" id="L132">	    return leftLimit + new Random().nextDouble() * (rightLimit - leftLimit);</span>
+<span class="fc" id="L125">		double leftLimit = -85.05112878;</span>
+<span class="fc" id="L126">	    double rightLimit = 85.05112878;</span>
+<span class="fc" id="L127">	    return leftLimit + new Random().nextDouble() * (rightLimit - leftLimit);</span>
 	}
 	
 	private Date getRandomTime() {
-<span class="fc" id="L136">		LocalDateTime localDateTime = LocalDateTime.now().minusDays(new Random().nextInt(30));</span>
-<span class="fc" id="L137">	    return Date.from(localDateTime.toInstant(ZoneOffset.UTC));</span>
+<span class="fc" id="L131">		LocalDateTime localDateTime = LocalDateTime.now().minusDays(new Random().nextInt(30));</span>
+<span class="fc" id="L132">	    return Date.from(localDateTime.toInstant(ZoneOffset.UTC));</span>
 	}
 	
 

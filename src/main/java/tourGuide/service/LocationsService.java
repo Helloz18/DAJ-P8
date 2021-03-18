@@ -1,5 +1,6 @@
 package tourGuide.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.json.JSONException;
@@ -21,7 +22,7 @@ public class LocationsService {
 	RewardsService rewardsService = new RewardsService(gpsUtil, new RewardCentral());
 	
 	
-	public VisitedLocation getUserLocation(User user) {
+	public VisitedLocation getUserLocation(User user) throws JSONException, IOException {
 		VisitedLocation visitedLocation = (user.getVisitedLocations().size() > 0) ?
 			user.getLastVisitedLocation() :
 			trackUserLocation(user);
@@ -36,6 +37,8 @@ public class LocationsService {
 	 * 
 	 * @param user
 	 * @return
+	 * @throws IOException 
+	 * @throws JSONException 
 	 */
 	public VisitedLocation trackUserLocation(User user) {
 

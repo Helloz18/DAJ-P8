@@ -1,21 +1,19 @@
-tourGuide/user/UserPreferences.java
- tourGuide.user.UserPreferences
-tourGuide/user/User.java
- tourGuide.user.User
-tourGuide/service/TripPricerService.java
- tourGuide.service.TripPricerService
 tourGuide/Application.java
  tourGuide.Application
-tourGuide/user/UserReward.java
- tourGuide.user.UserReward
-tourGuide/helper/InternalTestHelper.java
- tourGuide.helper.InternalTestHelper
+tourGuide/model/UserReward.java
+ tourGuide.model.UserReward
+tourGuide/controller/AttractionController.java
+ tourGuide.controller.AttractionController
 tourGuide/controller/MainController.java
  tourGuide.controller.MainController
+tourGuide/model/UserPreferences.java
+ tourGuide.model.UserPreferences
+tourGuide/model/User.java
+ tourGuide.model.User
+tourGuide/service/TripPricerService.java
+ tourGuide.service.TripPricerService
 tourGuide/service/RewardsService.java
  tourGuide.service.RewardsService
-tourGuide/TourGuideModule.java
- tourGuide.TourGuideModule
 tourGuide/service/AttractionsService.java
  tourGuide.service.AttractionsService
 tourGuide/service/UserService.java
@@ -28,10 +26,12 @@ tourGuide/controller/TripDealsController.java
  tourGuide.controller.TripDealsController
 tourGuide/tracker/Tracker.java
  tourGuide.tracker.Tracker
+tourGuide/TourGuideModule.java
+ tourGuide.TourGuideModule
 tourGuide/service/LocationsService.java
  tourGuide.service.LocationsService
-tourGuide/controller/AttractionController.java
- tourGuide.controller.AttractionController
+tourGuide/helper/InternalTestHelper.java
+ tourGuide.helper.InternalTestHelper
 tourGuide/service/TestService.java
  tourGuide.service.TestService
  tourGuide.service.TestService$1

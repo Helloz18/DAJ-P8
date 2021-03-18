@@ -1,5 +1,6 @@
 package tourGuide.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -30,9 +31,11 @@ public class LocationController {
      * get the last visitedLocation of a user if there is one, or the current visited location if it's his first
      * @param userName
      * @return a string with the latitude and longitude of the user
+	 * @throws IOException 
+	 * @throws JSONException 
      */
     @RequestMapping("/getLocation") 
-    public String getLocation(@RequestParam String userName) {
+    public String getLocation(@RequestParam String userName) throws JSONException, IOException {
     	VisitedLocation visitedLocation = locationsService.getUserLocation(userService.getUser(userName));
 		return JsonStream.serialize(visitedLocation.location);
     }

@@ -25,6 +25,7 @@ public class RewardsController {
      */
     @RequestMapping("/getRewards") 
     public String getRewards(@RequestParam String userName) {
+    	rewardsService.calculateRewards(userService.getUser(userName));
     	return JsonStream.serialize(rewardsService.getUserRewards(userService.getUser(userName)));
     }
     
