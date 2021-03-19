@@ -22,7 +22,7 @@ public class RewardsService {
 	String URL = "http://localhost:5000";
 
 	// proximity in miles
-	private int defaultProximityBuffer = 10;
+	private int defaultProximityBuffer =10;
 	private int proximityBuffer = defaultProximityBuffer;
 	private int attractionProximityRange = 200;
 	private final GpsUtil gpsUtil;
@@ -43,8 +43,7 @@ public class RewardsService {
 	
 
 	/**
-	 * for a user, return the sum of all rewardsPoints earned by his
-	 * visitedLocations.
+	 * for a user, add a reward if the user is in the proximityBuffer of a visitedLocation
 	 * 
 	 * @param user
 	 */

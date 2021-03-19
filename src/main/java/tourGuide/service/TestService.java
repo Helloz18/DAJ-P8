@@ -22,6 +22,7 @@ import gpsUtil.location.VisitedLocation;
 import rewardCentral.RewardCentral;
 import tourGuide.helper.InternalTestHelper;
 import tourGuide.model.User;
+import tourGuide.model.UserReward;
 import tourGuide.tracker.Tracker;
 
 @Service
@@ -99,6 +100,9 @@ public class TestService {
 		IntStream.range(0, 1).forEach(i-> {
 			user.addToVisitedLocations(new VisitedLocation(
 					user.getUserId(), new Location(generateRandomLatitude(), generateRandomLongitude()), getRandomTime()));
+			user.addUserReward(new UserReward(new VisitedLocation(
+					user.getUserId(), new Location(gpsUtil.getAttractions().get(0).latitude, gpsUtil.getAttractions().get(0).longitude), getRandomTime()),
+					gpsUtil.getAttractions().get(0),new Random().nextInt(200) ));
 		});
 	}
 	
